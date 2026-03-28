@@ -1,7 +1,7 @@
 
-  # Tech Career Acceleration Platform
+  # Website UI for CodeXAI
 
-  This is a code bundle for Tech Career Acceleration Platform. The original project is available at https://www.figma.com/design/t2YiMY1T4WNzcAWJNx2udb/Tech-Career-Acceleration-Platform.
+  This is a code bundle for Website UI for CodeXAI. The original project is available at https://www.figma.com/design/OEdGzoS32mK5FOn07Wbobz/Website-UI-for-CodeXAI.
 
   ## Running the code
 
