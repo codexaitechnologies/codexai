@@ -592,13 +592,14 @@ export default function Home() {
                 name: "Yogesh Chaudhary",
                 position: "Director & Co-Founder",
                 quote: "Our mission is to create practical, industry-aligned training programs that empower the next generation of tech professionals.",
-                image: "/yogesh.jpeg",
+                image: "/yogesh.jpeg?v=20260329",
+                imagePosition: "object-[50%_22%]",
               },
               {
                 name: "Roshan Kumar Mehta",
                 position: "Director & Co-Founder",
                 quote: "Excellence in technical education combined with mentorship is the key to accelerating careers and building confident developers.",
-                image: "/roshan.png",
+                image: "/roshan.jpeg?v=20260329",
               },
             ].map((founder, idx) => (
               <motion.div
@@ -609,16 +610,16 @@ export default function Home() {
                 transition={{ delay: idx * 0.15 }}
                 className="group relative"
               >
-                <div className="bg-gradient-to-br from-blue-950/40 to-purple-950/40 rounded-2xl overflow-hidden border border-blue-500/30 hover:border-blue-500/60 transition-all p-8 h-full flex flex-col">
+                <div className="bg-gradient-to-br from-blue-950/40 to-purple-950/40 rounded-2xl overflow-hidden border border-blue-500/30 hover:border-blue-500/60 transition-all p-8 md:p-10 h-full flex flex-col shadow-lg shadow-blue-950/20">
                   {/* Founder Image */}
-                  <div className="mb-6 flex justify-center">
-                    <div className="relative w-24 h-24">
+                  <div className="mb-8 flex justify-center">
+                    <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full p-1.5 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 shadow-[0_18px_45px_rgba(59,130,246,0.28)] transition-transform duration-300 group-hover:scale-105">
                       <img
                         src={founder.image}
                         alt={founder.name}
-                        className="w-full h-full rounded-full border-2 border-blue-500/50 object-cover"
+                        className={`w-full h-full rounded-full border-2 border-slate-950/80 object-cover ${founder.imagePosition ?? "object-top"} bg-slate-900`}
                       />
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 group-hover:from-blue-500/40 group-hover:to-purple-500/40 transition-all"></div>
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/18 via-transparent to-blue-500/18 opacity-80 group-hover:opacity-100 transition-opacity"></div>
                     </div>
                   </div>
 

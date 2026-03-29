@@ -147,7 +147,7 @@ export default function Layout() {
             <div>
               <h3 className="font-semibold mb-4">Contact</h3>
               <div className="flex flex-col gap-2 text-sm text-gray-400">
-                <p>Email: info@codexai.com</p>
+                <p>Email: codexaitechnologies@gmail.com</p>
                 <p>Phone: +91 82859 94903</p>
                 <div className="flex gap-4 mt-2">
                   <a href="#" className="hover:text-blue-400 transition-colors">
