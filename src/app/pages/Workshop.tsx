@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import {
-  Calendar,
-  Clock,
   MapPin,
   Users,
   CheckCircle,
@@ -15,6 +13,7 @@ import {
   User,
   Mail,
   Phone,
+  Building2,
 } from "lucide-react";
 
 export default function Workshop() {
@@ -61,26 +60,23 @@ export default function Workshop() {
               transition={{ duration: 0.6 }}
             >
               <div className="inline-block bg-yellow-500/20 border border-yellow-500/50 rounded-full px-4 py-2 mb-6">
-                <span className="text-yellow-400 text-sm">🎉 FREE Workshop - Limited Seats</span>
+                <span className="text-yellow-400 text-sm">🎉 Enroll Now - Limited Seats</span>
               </div>
               <h1 className="text-5xl md:text-7xl mb-6">
-                Experience the{" "}
+                Experience Premium{" "}
                 <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
-                  CodeXAI
+                  Tech Education
                 </span>{" "}
-                Difference
+                at CodeXAI
               </h1>
               <p className="text-xl text-gray-300 mb-8">
-                Join our free offline workshop and discover how to accelerate your tech career
-                with hands-on learning in Java, AWS, and AI.
+                Send us an enquiry to learn about our comprehensive training programs in Java, AWS, AI, and Full Stack development.
               </p>
 
               <div className="space-y-4">
                 {[
-                  { icon: Calendar, text: "Next Workshop: April 5, 2026" },
-                  { icon: Clock, text: "Duration: 3 Hours" },
                   { icon: MapPin, text: "Offline @ Our Tech Campus" },
-                  { icon: Users, text: "Limited to 30 Participants" },
+                  { icon: Users, text: "Personalized Learning Experience" },
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3 text-gray-300">
                     <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">
@@ -97,107 +93,174 @@ export default function Workshop() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-gradient-to-br from-blue-950/80 to-purple-950/80 backdrop-blur-lg rounded-2xl p-8 border border-blue-500/30"
+              className="bg-gradient-to-br from-blue-950/80 to-purple-950/80 backdrop-blur-lg rounded-2xl p-5 border border-blue-500/30 max-w-md mx-auto"
             >
               {submitted ? (
-                <div className="text-center py-12">
-                  <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10 text-green-500" />
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <CheckCircle className="w-8 h-8 text-green-500" />
                   </div>
-                  <h3 className="text-3xl mb-4">You're Registered!</h3>
-                  <p className="text-gray-300 mb-6">
-                    Check your email for workshop details and preparation materials.
+                  <h3 className="text-2xl mb-2">Success!</h3>
+                  <p className="text-gray-300 mb-4 text-sm">
+                    Thank you for your interest. Our team will contact you shortly.
                   </p>
-                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
-                    <p className="text-sm text-gray-400">
-                      We'll send you a reminder 24 hours before the workshop.
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+                    <p className="text-xs text-gray-400">
+                      Check your email for confirmation.
                     </p>
                   </div>
                 </div>
               ) : (
                 <>
-                  <h2 className="text-3xl mb-2">Register Now</h2>
-                  <p className="text-gray-400 mb-6">Secure your spot today - FREE entry!</p>
+                  <h2 className="text-2xl mb-1">Send Enquiry</h2>
+                  <p className="text-gray-400 mb-4 text-sm">Tell us about your learning goals</p>
 
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit} className="space-y-3">
                     <div>
-                      <label className="block text-sm mb-2 text-gray-300">Full Name</label>
+                      <label className="block text-xs mb-1 text-gray-300">Full Name</label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <input
                           type="text"
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
                           required
-                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-12 pr-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
                           placeholder="John Doe"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm mb-2 text-gray-300">Email Address</label>
+                      <label className="block text-xs mb-1 text-gray-300">Email Address</label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <input
                           type="email"
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-12 pr-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
                           placeholder="john@example.com"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm mb-2 text-gray-300">Phone Number</label>
+                      <label className="block text-xs mb-1 text-gray-300">Phone Number</label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <input
                           type="tel"
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
                           required
-                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-12 pr-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
                           placeholder="+91 98765 43210"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm mb-2 text-gray-300">Interested In</label>
+                      <label className="block text-xs mb-1 text-gray-300">Course of Interest</label>
                       <select
                         name="interest"
                         value={formData.interest}
                         onChange={handleChange}
-                        className="w-full bg-black/50 border border-blue-500/30 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full bg-black/50 border border-blue-500/30 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
                       >
-                        <option value="full-stack-ai">Full Stack AI Engineer</option>
-                        <option value="java-backend">Java Backend Engineering</option>
-                        <option value="aws-cloud">AWS Cloud Engineering</option>
-                        <option value="gen-ai">Generative AI Builder</option>
-                        <option value="corporate">Corporate Training</option>
+                        <option value="full-stack-ai">Full Stack AI Engineer (6 Months)</option>
+                        <option value="java-backend">Java Backend Engineering (2 Months)</option>
+                        <option value="aws-cloud">AWS Cloud Engineering (8 Weeks)</option>
+                        <option value="gen-ai">Generative AI Builder (3 Months)</option>
+                        <option value="corporate">Corporate Training Programs</option>
                       </select>
                     </div>
 
                     <button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-4 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-2 text-lg"
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-2 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-2 text-sm"
                     >
-                      Register for Free <ArrowRight className="w-5 h-5" />
+                      Send Enquiry <ArrowRight className="w-4 h-4" />
                     </button>
 
                     <p className="text-xs text-gray-400 text-center">
-                      By registering, you agree to receive updates about the workshop
+                      By submitting, you agree to receive program information
                     </p>
                   </form>
                 </>
               )}
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Company Amenities */}
+      <section className="py-20 bg-gradient-to-b from-blue-950/10 via-purple-950/10 to-transparent">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-6xl mb-4">
+              Why Choose <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">CodeXAI</span>
+            </h2>
+            <p className="text-xl text-gray-400">Premium learning experience with industry-standard facilities</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {[
+              {
+                icon: Users,
+                title: "1:1 Mentorship",
+                desc: "Personalized guidance from industry experts",
+                color: "blue",
+              },
+              {
+                icon: Building2,
+                title: "Great Infrastructure",
+                desc: "State-of-the-art tech campus with modern facilities",
+                color: "purple",
+              },
+              {
+                icon: Code,
+                title: "Coding Sessions",
+                desc: "Live coding workshops and hands-on projects",
+                color: "orange",
+              },
+              {
+                icon: Sparkles,
+                title: "AI Integration",
+                desc: "Learn cutting-edge AI and ML technologies",
+                color: "yellow",
+              },
+              {
+                icon: Award,
+                title: "Industry Certification",
+                desc: "Recognized certificates for career advancement",
+                color: "green",
+              },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className={`p-6 rounded-xl bg-gradient-to-br from-${item.color}-950/30 to-transparent border border-${item.color}-500/30 hover:border-${item.color}-500/50 transition-all text-center`}
+              >
+                <div className={`w-14 h-14 bg-${item.color}-500/20 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <item.icon className={`w-7 h-7 text-${item.color}-500`} />
+                </div>
+                <h3 className="text-lg mb-2 font-semibold">{item.title}</h3>
+                <p className="text-sm text-gray-400">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -212,9 +275,9 @@ export default function Workshop() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-6xl mb-4">
-              What You'll <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Experience</span>
+              What You'll <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Learn</span>
             </h2>
-            <p className="text-xl text-gray-400">A glimpse into our teaching methodology</p>
+            <p className="text-xl text-gray-400">Comprehensive curriculum designed for industry needs</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -255,8 +318,8 @@ export default function Workshop() {
         </div>
       </section>
 
-      {/* Workshop Agenda */}
-      <section className="py-20">
+      {/* Early Bird Discounts */}
+      <section className="py-20 bg-gradient-to-b from-yellow-950/10 via-orange-950/10 to-transparent">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -264,50 +327,41 @@ export default function Workshop() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-6xl mb-4">Workshop Agenda</h2>
-            <p className="text-xl text-gray-400">3 hours of intensive learning</p>
+            <h2 className="text-4xl md:text-6xl mb-4">
+              Early Bird <span className="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">Discounts</span>
+            </h2>
+            <p className="text-xl text-gray-400">Limited time offers for our programs</p>
           </motion.div>
 
-          <div className="max-w-3xl mx-auto space-y-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                time: "10:00 AM - 10:30 AM",
-                title: "Welcome & Introduction",
-                desc: "Overview of CodeXAI, meet the instructors, and network with peers",
+                program: "Full Stack AI Engineer",
+                discount: "30% OFF",
               },
               {
-                time: "10:30 AM - 11:30 AM",
-                title: "Live Coding: Backend API",
-                desc: "Build a REST API with Java Spring Boot from scratch",
+                program: "Java Backend Engineering",
+                discount: "25% OFF",
               },
               {
-                time: "11:30 AM - 12:15 PM",
-                title: "Cloud Deployment Demo",
-                desc: "Deploy the application to AWS and configure CI/CD",
-              },
-              {
-                time: "12:15 PM - 12:45 PM",
-                title: "AI Integration",
-                desc: "Add AI capabilities using OpenAI API and LangChain",
-              },
-              {
-                time: "12:45 PM - 1:00 PM",
-                title: "Q&A & Course Overview",
-                desc: "Your questions answered, course details, and enrollment process",
+                program: "AWS Cloud Engineering",
+                discount: "20% OFF",
               },
             ].map((item, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="flex gap-6 p-6 rounded-xl bg-gradient-to-r from-blue-950/30 to-transparent border border-blue-500/30"
+                className="relative p-8 rounded-2xl bg-gradient-to-br from-yellow-950/30 via-orange-950/30 to-transparent border border-yellow-500/30 hover:border-yellow-500/60 transition-all overflow-hidden"
               >
-                <div className="text-blue-400 text-sm flex-shrink-0 w-32">{item.time}</div>
-                <div className="flex-1">
-                  <h3 className="text-xl mb-2">{item.title}</h3>
-                  <p className="text-gray-400">{item.desc}</p>
+                <div className="absolute -top-2 -right-2 bg-gradient-to-br from-red-500 to-orange-500 px-4 py-2 rounded-full text-sm font-bold text-white">
+                  {item.discount}
+                </div>
+                <h3 className="text-2xl font-bold mb-6">{item.program}</h3>
+                <div className="space-y-3">
+                  <p className="text-gray-400">Limited time offer - Enroll today!</p>
                 </div>
               </motion.div>
             ))}
@@ -315,7 +369,70 @@ export default function Workshop() {
         </div>
       </section>
 
-      {/* Bonuses */}
+      {/* Infrastructure Section */}
+      <section className="py-20 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-6xl mb-4">
+              Our <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">World-Class</span> Infrastructure
+            </h2>
+            <p className="text-xl text-gray-400">State-of-the-art facilities designed for optimal learning</p>
+          </motion.div>
+
+          <div className="relative">
+            <div className="flex overflow-x-auto pb-6 gap-6 scroll-smooth" style={{ scrollBehavior: "smooth" }}>
+              {[
+                {
+                  title: "Learning Labs",
+                  image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+                },
+                {
+                  title: "Coding Studio",
+                  image: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+                },
+                {
+                  title: "Collaboration Space",
+                  image: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+                },
+                {
+                  title: "Meeting Rooms",
+                  image: "https://images.unsplash.com/photo-1532622785990-1b1c9fbf6899?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+                },
+                {
+                  title: "Mentor Zones",
+                  image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+                },
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="flex-shrink-0 w-80 rounded-2xl overflow-hidden border border-blue-500/30 hover:border-blue-500/60 transition-all group"
+                >
+                  <div className="relative h-64">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">{item.title}</h3>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       <section className="py-20 bg-gradient-to-b from-purple-950/10 to-transparent">
         <div className="container mx-auto px-4">
           <motion.div
@@ -325,9 +442,9 @@ export default function Workshop() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-6xl mb-4">
-              Workshop <span className="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">Bonuses</span>
+              Program <span className="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">Bonuses</span>
             </h2>
-            <p className="text-xl text-gray-400">Extra value for all attendees</p>
+            <p className="text-xl text-gray-400">Extra value packed in every program</p>
           </motion.div>
 
           <div className="grid md:grid-cols-4 gap-6">
@@ -400,7 +517,7 @@ export default function Workshop() {
               {
                 name: "Amit Kumar",
                 role: "Career Switcher",
-                text: "After the workshop, I knew CodeXAI was the right choice for my career transformation. Now earning 18 LPA!",
+                text: "After the workshop, I knew CodeXAI was the right choice for my career transformation and professional growth!",
               },
             ].map((testimonial, idx) => (
               <motion.div
@@ -435,11 +552,11 @@ export default function Workshop() {
             className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-center"
           >
             <h2 className="text-4xl md:text-5xl mb-6">
-              Only <span className="text-yellow-400">30 Seats</span> Available
+              Transform Your <span className="text-yellow-400">Tech Career</span> Today
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Don't miss this opportunity to experience premium tech education for free.
-              Register now before spots run out!
+              Join thousands of professionals who have accelerated their careers with CodeXAI.
+              Limited seats available with early bird discounts!
             </p>
             <a
               href="#top"
@@ -449,7 +566,7 @@ export default function Workshop() {
               }}
               className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg hover:shadow-lg transition-all text-lg"
             >
-              Register Now - It's Free! <ArrowRight className="w-5 h-5" />
+              Send Your Enquiry Now <ArrowRight className="w-5 h-5" />
             </a>
           </motion.div>
         </div>

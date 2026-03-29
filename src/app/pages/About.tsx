@@ -270,13 +270,13 @@ export default function About() {
               Ready to Transform Your Career?
             </h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Join our free workshop and experience the CodeXAI difference firsthand.
+              Learn more about our programs and send us your enquiry to get started with your transformation.
             </p>
             <Link
-              to="/workshop"
+              to="/enquiry"
               className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg hover:shadow-lg transition-all text-lg"
             >
-              Book Free Workshop <ArrowRight className="w-5 h-5" />
+              Send Enquiry <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>
         </div>

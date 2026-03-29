@@ -41,22 +41,22 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link to="/course/java-backend" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  Java Backend Engineering
+                  Java Backend + AI Integration
                 </Link>
               </li>
               <li>
                 <Link to="/course/aws-cloud" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  AWS Cloud Engineering
+                  AWS Cloud Engineering + AI Integration
                 </Link>
               </li>
               <li>
                 <Link to="/course/gen-ai" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  Generative AI Builder
+                  GenAI Engineering Flagship Program
                 </Link>
               </li>
               <li>
                 <Link to="/course/full-stack-ai" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  Full Stack AI Engineer
+                  Full Stack + AI Engineering Program
                 </Link>
               </li>
             </ul>

@@ -41,8 +41,8 @@ export default function Home() {
         </div>
 
         {/* Hero Content */}
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 py-10 relative z-10">
+          <div className="grid md:grid-cols-2 gap-60 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -63,10 +63,10 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  to="/workshop"
+                  to="/enquiry"
                   className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all flex items-center gap-2 justify-center"
                 >
-                  Join Free Workshop <ArrowRight className="w-5 h-5" />
+                  Send Enquiry <ArrowRight className="w-5 h-5" />
                 </Link>
                 <a
                   href="#courses"
@@ -145,7 +145,7 @@ export default function Home() {
       </section>
 
       {/* Courses Section */}
-      <section id="courses" className="py-20">
+       <section id="courses" className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -172,7 +172,7 @@ export default function Home() {
                 2 Months
               </div>
               <Code className="w-12 h-12 text-blue-500 mb-4" />
-              <h3 className="text-3xl mb-4">Java Backend Engineering</h3>
+              <h3 className="text-3xl mb-4">Java Engineering + AI Integration</h3>
               <p className="text-gray-400 mb-6">
                 Master Java fundamentals, OOP, collections, file handling, and build real backend projects.
               </p>
@@ -213,9 +213,9 @@ export default function Home() {
                 8 Weeks
               </div>
               <Cloud className="w-12 h-12 text-purple-500 mb-4" />
-              <h3 className="text-3xl mb-4">AWS Cloud Engineering</h3>
+              <h3 className="text-3xl mb-4">AWS Cloud + AI Integration</h3>
               <p className="text-gray-400 mb-6">
-                Learn EC2, S3, IAM, CI/CD, Docker, serverless computing with hands-on AWS labs.
+                Learn EC2, S3, IAM, CI/CD, Docker, serverless computing with hands-on AWS labs and AI services integration.
               </p>
               <div className="space-y-2 mb-6">
                 <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -254,7 +254,7 @@ export default function Home() {
                 3 Months
               </div>
               <Sparkles className="w-12 h-12 text-orange-500 mb-4" />
-              <h3 className="text-3xl mb-4">Generative AI Builder Program</h3>
+              <h3 className="text-3xl mb-4">GenAI Foundation Program</h3>
               <p className="text-gray-400 mb-6">
                 Prompt engineering, LLMs, RAG, AI agents, and production-ready AI applications.
               </p>
@@ -297,9 +297,9 @@ export default function Home() {
               <div className="flex items-center gap-3 mb-4">
                 <Zap className="w-12 h-12 text-yellow-500" />
               </div>
-              <h3 className="text-3xl mb-4">Full Stack AI Engineer Program</h3>
+              <h3 className="text-3xl mb-4">Full Stack + AI Integration Program</h3>
               <p className="text-gray-400 mb-6">
-                Complete 6-month transformation: Java Backend + AWS Cloud + Generative AI with system design & career mentorship.
+                Complete 6-month transformation: Java Backend + AWS Cloud + Generative AI integrated throughout with system design & career mentorship.
               </p>
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -563,6 +563,85 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Founders Section */}
+      <section className="py-20 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Meet Our <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Founders</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Visionary leaders passionate about transforming tech education and career acceleration
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Adarsh Chaudhary",
+                position: "Director & Co-Founder",
+                quote: "We believe everyone deserves access to world-class tech education that bridges the gap between learning and real-world application.",
+                image: "/adarsh.jpg",
+              },
+              {
+                name: "Yogesh Chaudhary",
+                position: "Director & Co-Founder",
+                quote: "Our mission is to create practical, industry-aligned training programs that empower the next generation of tech professionals.",
+                image: "/yogesh.jpeg",
+              },
+              {
+                name: "Roshan Kumar Mehta",
+                position: "Director & Co-Founder",
+                quote: "Excellence in technical education combined with mentorship is the key to accelerating careers and building confident developers.",
+                image: "/roshan.png",
+              },
+            ].map((founder, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.15 }}
+                className="group relative"
+              >
+                <div className="bg-gradient-to-br from-blue-950/40 to-purple-950/40 rounded-2xl overflow-hidden border border-blue-500/30 hover:border-blue-500/60 transition-all p-8 h-full flex flex-col">
+                  {/* Founder Image */}
+                  <div className="mb-6 flex justify-center">
+                    <div className="relative w-24 h-24">
+                      <img
+                        src={founder.image}
+                        alt={founder.name}
+                        className="w-full h-full rounded-full border-2 border-blue-500/50 object-cover"
+                      />
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 group-hover:from-blue-500/40 group-hover:to-purple-500/40 transition-all"></div>
+                    </div>
+                  </div>
+
+                  {/* Founder Info */}
+                  <h3 className="text-xl font-bold text-center mb-1">{founder.name}</h3>
+                  <p className="text-sm text-blue-400 text-center mb-4 font-semibold">{founder.position}</p>
+
+                  {/* Quote */}
+                  <div className="flex-1 mb-4">
+                    <p className="text-gray-300 text-sm italic leading-relaxed text-center">
+                      "{founder.quote}"
+                    </p>
+                  </div>
+
+                  {/* Decorative Line */}
+                  <div className="h-1 bg-gradient-to-r from-blue-500/0 via-blue-500 to-blue-500/0 opacity-50"></div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Workshop CTA Section */}
       <section className="py-20 bg-gradient-to-b from-blue-950/20 via-purple-950/20 to-transparent">
         <div className="container mx-auto px-4">
@@ -583,17 +662,17 @@ export default function Home() {
 
             <div className="relative z-10 py-20 px-8 text-center">
               <h2 className="text-4xl md:text-6xl mb-6">
-                Join Our <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">Free Workshop</span>
+                Send Your <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">Enquiry</span>
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Experience offline learning, network with peers, and discover how CodeXAI can
+                Learn more about our programs, speak with our team, and discover how CodeXAI can
                 accelerate your tech career.
               </p>
               <Link
-                to="/workshop"
+                to="/enquiry"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-orange-500/50 transition-all text-lg"
               >
-                Book Your Free Workshop <ArrowRight className="w-5 h-5" />
+                Send Enquiry <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
           </motion.div>
