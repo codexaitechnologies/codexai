@@ -289,7 +289,7 @@ const courses = {
       "Complete full-stack AI engineer skillset",
       "15+ production-ready projects",
       "System design expertise",
-      "Ready for senior roles (15-25 LPA)",
+      "Senior Developer Roles",
     ],
   },
 };

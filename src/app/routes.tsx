@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "course/:courseId", Component: CourseDetail },
       { path: "about", Component: About },
-      { path: "workshop", Component: Workshop },
+      { path: "enquiry", Component: Workshop },
       { path: "*", Component: NotFound },
     ],
   },

@@ -14,13 +14,12 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">C</span>
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              CodeXAI
-            </span>
+          <Link to="/" className="flex items-center gap-2 mt-1">
+            <img 
+              src="/logo.png" 
+              alt="CodeXAI Logo" 
+              className="h-12 object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -48,20 +47,20 @@ export function Header() {
               About
             </Link>
             <Link
-              to="/workshop"
+              to="/enquiry"
               className={`text-sm transition-colors ${
-                isActive("/workshop") ? "text-blue-400" : "text-gray-300 hover:text-white"
+                isActive("/enquiry") ? "text-blue-400" : "text-gray-300 hover:text-white"
               }`}
             >
-              Workshop
+              Why CodeXAI?
             </Link>
           </nav>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
-            <Link to="/workshop">
+            <Link to="/enquiry">
               <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                Join Free Workshop
+                Send Enquiry
               </Button>
             </Link>
           </div>
@@ -101,15 +100,15 @@ export function Header() {
                 About
               </Link>
               <Link
-                to="/workshop"
+                to="/enquiry"
                 className="text-gray-300 hover:text-white transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Workshop
+                Enquiry
               </Link>
-              <Link to="/workshop" onClick={() => setMobileMenuOpen(false)}>
+              <Link to="/enquiry" onClick={() => setMobileMenuOpen(false)}>
                 <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600">
-                  Join Free Workshop
+                  Send Enquiry
                 </Button>
               </Link>
             </nav>

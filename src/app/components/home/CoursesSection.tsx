@@ -6,11 +6,11 @@ export function CoursesSection() {
   const courses = [
     {
       id: "java-backend",
-      title: "Java Backend Engineering",
+      title: "Java Backend + AI Integration",
       duration: "2 Months",
       level: "Beginner to Intermediate",
-      description: "Master Java fundamentals, OOP, collections, file handling, and build real backend systems.",
-      skills: ["Core Java", "OOP", "Collections", "File Handling", "Exception Handling"],
+      description: "Master Java fundamentals, OOP, collections, file handling, and build real backend systems integrated with AI capabilities.",
+      skills: ["Core Java", "OOP", "Collections", "File Handling", "AI Integration"],
       projects: "5+ Projects",
       gradient: "from-orange-500 to-red-500",
       bgGradient: "from-orange-500/10 to-red-500/10",
@@ -18,11 +18,11 @@ export function CoursesSection() {
     },
     {
       id: "aws-cloud",
-      title: "AWS Cloud Engineering",
+      title: "AWS Cloud + AI Integration",
       duration: "8 Weeks",
       level: "Intermediate",
-      description: "Build, deploy, and scale applications on AWS with hands-on labs covering EC2, S3, IAM, Docker & CI/CD.",
-      skills: ["EC2", "S3", "IAM", "Docker", "CI/CD", "Serverless"],
+      description: "Build, deploy, and scale AI-enabled applications on AWS with hands-on labs covering EC2, S3, IAM, Docker, CI/CD & AI services.",
+      skills: ["EC2", "S3", "IAM", "Docker", "AI Integration", "Serverless"],
       projects: "4+ AWS Labs",
       gradient: "from-blue-500 to-cyan-500",
       bgGradient: "from-blue-500/10 to-cyan-500/10",
@@ -42,24 +42,23 @@ export function CoursesSection() {
     },
     {
       id: "full-stack-ai",
-      title: "Full Stack AI Engineer Program",
+      title: "Full Stack + AI Integration Program",
       duration: "6 Months",
       level: "Complete Program",
-      description: "The ultimate program combining Java Backend + AWS Cloud + Generative AI with system design & interview prep.",
-      skills: ["Full Stack", "Backend", "Cloud", "AI", "System Design", "DSA"],
+      description: "The ultimate program combining Python + Machine Learning + Generative AI integrated throughout the full stack with system design & interview prep.",
+      skills: ["Full Stack", "Backend", "Cloud", "AI Integration", "System Design", "DSA"],
       projects: "15+ End-to-End Projects",
       gradient: "from-blue-600 to-purple-600",
       bgGradient: "from-blue-600/10 to-purple-600/10",
       image: "https://images.unsplash.com/photo-1768796370577-c6e8b708b980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwY29kaW5nJTIwd29ya3Nob3AlMjBsZWFybmluZ3xlbnwxfHx8fDE3NzQ2OTkxNTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      featured: true,
     },
   ];
 
   return (
     <section id="courses" className="py-20 bg-black relative">
-      <div className="container mx-auto px-4">
+      <div className="px-4 mb-16">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
             <Sparkles size={16} className="text-blue-400" />
             <span className="text-sm text-blue-400">Transform Your Career</span>
@@ -71,36 +70,30 @@ export function CoursesSection() {
             Industry-focused programs designed for real-world career outcomes
           </p>
         </div>
+      </div>
 
-        {/* Courses Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+      {/* Courses Horizontal Scroll */}
+      <div style={{ overflowX: 'auto', overflowY: 'hidden' }} className="pb-4">
+        <div style={{ display: 'flex', gap: '24px', minWidth: 'min-content', padding: '0 16px' }}>
           {courses.map((course) => (
             <div
               key={course.id}
-              className={`relative group ${course.featured ? 'md:col-span-2' : ''}`}
+              style={{ flex: '0 0 384px' }}
+              className="relative group"
             >
-              {/* Featured Badge */}
-              {course.featured && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                  <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
-                    ⭐ FLAGSHIP PROGRAM
-                  </div>
-                </div>
-              )}
-
               {/* Glow Effect */}
               <div className={`absolute inset-0 bg-gradient-to-r ${course.bgGradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity`}></div>
 
               {/* Card */}
-              <div className={`relative bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all ${course.featured ? 'md:flex' : ''}`}>
+              <div className="relative bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all h-full flex flex-col">
                 {/* Image */}
-                <div className={`relative overflow-hidden ${course.featured ? 'md:w-1/2' : 'h-48'}`}>
+                <div className="relative overflow-hidden h-48">
                   <img
                     src={course.image}
                     alt={course.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent`}></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
                   
                   {/* Duration Badge */}
                   <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2">
@@ -110,16 +103,16 @@ export function CoursesSection() {
                 </div>
 
                 {/* Content */}
-                <div className={`p-6 ${course.featured ? 'md:w-1/2 flex flex-col justify-between' : ''}`}>
+                <div className="p-6 flex flex-col flex-1 justify-between">
                   <div>
                     <div className="flex items-start justify-between mb-3">
                       <div>
-                        <h3 className="text-2xl font-bold text-white mb-2">{course.title}</h3>
+                        <h3 className="text-xl font-bold text-white mb-2">{course.title}</h3>
                         <span className="text-sm text-gray-400">{course.level}</span>
                       </div>
                     </div>
 
-                    <p className="text-gray-300 mb-4 leading-relaxed">
+                    <p className="text-gray-300 mb-4 leading-relaxed text-sm">
                       {course.description}
                     </p>
 
@@ -130,7 +123,7 @@ export function CoursesSection() {
                         {course.skills.map((skill, index) => (
                           <span
                             key={index}
-                            className={`px-3 py-1 rounded-full text-xs bg-gradient-to-r ${course.bgGradient} border border-white/10 text-white`}
+                            className={`px-2 py-1 rounded-full text-xs bg-gradient-to-r ${course.bgGradient} border border-white/10 text-white`}
                           >
                             {skill}
                           </span>
@@ -146,7 +139,7 @@ export function CoursesSection() {
                   </div>
 
                   {/* CTA */}
-                  <Link to={`/course/${course.id}`}>
+                  <Link to={`/course/${course.id}`} className="block">
                     <Button
                       className={`w-full bg-gradient-to-r ${course.gradient} hover:opacity-90 group`}
                     >
