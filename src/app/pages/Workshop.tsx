@@ -14,21 +14,51 @@ import {
   Mail,
   Phone,
   Building2,
+  Loader,
 } from "lucide-react";
 import type { Enquiry } from "../types/enquiry";
+import { createUser } from "../utils/apiUtils";
+import { useCourses } from "../context/CoursesContext";
 
 export default function Workshop() {
+  const { courses, loading: loadingCourses } = useCourses();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    interest: "full-stack-ai",
+    interest: courses.length > 0 ? courses[0].courseId : "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Update interest field when courses load
+  if (courses.length > 0 && formData.interest === "") {
+    setFormData((prev) => ({
+      ...prev,
+      interest: courses[0].courseId,
+    }));
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     
+    const selectedCourse = courses.find(
+      (c) => c.courseId === formData.interest
+    );
+    
+    if (!selectedCourse) {
+      console.error("Course not found for interest:", formData.interest);
+      console.error("Available courses:", courses.map((c) => ({ courseId: c.courseId, title: c.title })));
+      setLoading(false);
+      alert("Error: Please select a valid course");
+      return;
+    }
+    
+    const courseName = selectedCourse.title;
+    const courseId = selectedCourse.courseId;
+
     // Create enquiry object
     const enquiry: Enquiry = {
       fullName: formData.name,
@@ -37,23 +67,41 @@ export default function Workshop() {
       courseOfInterest: formData.interest,
       submittedAt: new Date(),
     };
-    
+
     // Log enquiry to console
     console.log("Enquiry Submitted:", enquiry);
+
+    const payload = {
+      fullName: formData.name,
+      email: formData.email,
+      phoneNumber: formData.phone,
+      course: courseName,
+      courseId,
+    };
     
-    // Show success message
-    setSubmitted(true);
-    
-    // Clear form fields after delay
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        interest: "full-stack-ai",
-      });
-      setSubmitted(false);
-    }, 3000);
+    console.log("API Payload:", payload);
+
+    await createUser(payload).then((response) => {
+      console.log("API Response:", response);
+      // Show success message
+      setLoading(false);
+      setSubmitted(true);
+
+      // Clear form fields after delay
+      setTimeout(() => {
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          interest: courses.length > 0 ? courses[0].courseId : "",
+        });
+        setSubmitted(false);
+      }, 3000);
+    }).catch((error) => {
+      console.error("API Error:", error);
+      setLoading(false);
+      alert("Failed to submit enquiry. Please try again.");
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -63,7 +111,15 @@ export default function Workshop() {
     });
   };
 
-
+  const isFormValid = (): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return (
+      formData.name.trim() !== "" &&
+      emailRegex.test(formData.email) &&
+      formData.phone.trim() !== "" &&
+      formData.interest.trim() !== ""
+    );
+  };
 
   return (
     <div className="min-h-screen">
@@ -121,7 +177,17 @@ export default function Workshop() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="bg-gradient-to-br from-blue-950/80 to-purple-950/80 backdrop-blur-lg rounded-2xl p-5 border border-blue-500/30 max-w-md mx-auto"
             >
-              {submitted ? (
+              {loading ? (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-3 animate-spin">
+                    <Loader className="w-8 h-8 text-blue-500" />
+                  </div>
+                  <h3 className="text-2xl mb-2">Processing...</h3>
+                  <p className="text-gray-300 mb-4 text-sm">
+                    Please wait while we process your request.
+                  </p>
+                </div>
+              ) : submitted ? (
                 <div className="text-center py-8">
                   <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <CheckCircle className="w-8 h-8 text-green-500" />
@@ -198,27 +264,24 @@ export default function Workshop() {
                         onChange={handleChange}
                         className="w-full bg-black/50 border border-blue-500/30 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
                       >
-                        <option value="full-stack-ai">Full Stack AI Engineer (6 Months)</option>
-                        <option value="java-backend">Java Backend Engineering (2 Months)</option>
-                        <option value="aws-cloud">AWS Cloud Engineering (8 Weeks)</option>
-                        <option value="gen-ai">Generative AI Builder (3 Months)</option>
-                        <option value="corporate">Corporate Training Programs</option>
+                        {loadingCourses ? (
+                          <option>Loading...</option>
+                        ) : (
+                          courses.map((course) => (
+                            <option key={course.courseId} value={course.courseId}>
+                              {course.title} ({course.duration})
+                            </option>
+                          ))
+                        )}
                       </select>
                     </div>
 
-                    {!["gen-ai", "aws-cloud"].includes(formData.interest) && (
-                      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 mb-2">
-                        <p className="text-xs text-yellow-400">
-                          ℹ️ Brochure is available only for <strong>Generative AI Builder</strong> and <strong>AWS Cloud</strong> courses. Please select one to proceed.
-                        </p>
-                      </div>
-                    )}
 
                     <button
                       type="submit"
-                      disabled={!["gen-ai", "aws-cloud"].includes(formData.interest)}
+                      disabled={!isFormValid()}
                       className={`w-full py-2 rounded-lg flex items-center justify-center gap-2 text-sm transition-all ${
-                        ["gen-ai", "aws-cloud"].includes(formData.interest)
+                        isFormValid()
                           ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50 cursor-pointer"
                           : "bg-gray-600 opacity-50 cursor-not-allowed"
                       }`}

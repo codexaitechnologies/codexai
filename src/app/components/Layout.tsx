@@ -1,11 +1,19 @@
-import { Outlet, Link } from "react-router";
+import { Outlet, Link, useLocation } from "react-router";
 import { Menu, X, Sun, Moon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "../context/ThemeContext";
+import { useCourses } from "../context/CoursesContext";
 
 export default function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { courses } = useCourses();
+  const location = useLocation();
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-white dark:from-black dark:via-slate-950 dark:to-black text-slate-900 dark:text-white transition-colors duration-300">
@@ -140,18 +148,19 @@ export default function Layout() {
             <div>
               <h3 className="font-semibold mb-4 text-slate-800 dark:text-white">Courses</h3>
               <div className="flex flex-col gap-2 text-sm text-slate-500 dark:text-gray-400">
-                <Link to="/course/java-backend" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  Java Backend Engineering
-                </Link>
-                <Link to="/course/aws-cloud" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  AWS Cloud Engineering
-                </Link>
-                <Link to="/course/gen-ai" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  Generative AI Builder
-                </Link>
-                <Link to="/course/full-stack-ai" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                  Full Stack AI Engineer
-                </Link>
+                {courses.length > 0 ? (
+                  courses.map((course) => (
+                    <Link
+                      key={course.courseId}
+                      to={course.link}
+                      className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      {course.title}
+                    </Link>
+                  ))
+                ) : (
+                  <p>Loading courses...</p>
+                )}
               </div>
             </div>
 
