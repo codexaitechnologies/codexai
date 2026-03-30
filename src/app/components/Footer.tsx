@@ -95,7 +95,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-gray-400 text-sm">
                 <Mail size={16} className="mt-0.5 flex-shrink-0" />
-                <span>contact@codexai.in</span>
+                <span>codexaitechnologies@gmail.com</span>
               </li>
               <li className="flex items-start gap-2 text-gray-400 text-sm">
                 <Phone size={16} className="mt-0.5 flex-shrink-0" />
