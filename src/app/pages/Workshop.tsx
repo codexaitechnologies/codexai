@@ -15,6 +15,7 @@ import {
   Phone,
   Building2,
 } from "lucide-react";
+import type { Enquiry } from "../types/enquiry";
 
 export default function Workshop() {
   const [formData, setFormData] = useState({
@@ -27,9 +28,32 @@ export default function Workshop() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
+    
+    // Create enquiry object
+    const enquiry: Enquiry = {
+      fullName: formData.name,
+      emailAddress: formData.email,
+      phoneNumber: formData.phone,
+      courseOfInterest: formData.interest,
+      submittedAt: new Date(),
+    };
+    
+    // Log enquiry to console
+    console.log("Enquiry Submitted:", enquiry);
+    
+    // Show success message
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    
+    // Clear form fields after delay
+    setTimeout(() => {
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        interest: "full-stack-ai",
+      });
+      setSubmitted(false);
+    }, 3000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -38,6 +62,8 @@ export default function Workshop() {
       [e.target.name]: e.target.value,
     });
   };
+
+
 
   return (
     <div className="min-h-screen">
@@ -100,19 +126,19 @@ export default function Workshop() {
                   <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
                     <CheckCircle className="w-8 h-8 text-green-500" />
                   </div>
-                  <h3 className="text-2xl mb-2">Success!</h3>
+                  <h3 className="text-2xl mb-2">Thank you!</h3>
                   <p className="text-gray-300 mb-4 text-sm">
                     Thank you for your interest. Our team will contact you shortly.
                   </p>
                   <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
                     <p className="text-xs text-gray-400">
-                      Check your email for confirmation.
+                      Check your email for updates.
                     </p>
                   </div>
                 </div>
               ) : (
                 <>
-                  <h2 className="text-2xl mb-1">Send Enquiry</h2>
+                  <h2 className="text-2xl mb-1">Get in Touch</h2>
                   <p className="text-gray-400 mb-4 text-sm">Tell us about your learning goals</p>
 
                   <form onSubmit={handleSubmit} className="space-y-3">
@@ -180,11 +206,24 @@ export default function Workshop() {
                       </select>
                     </div>
 
+                    {!["gen-ai", "aws-cloud"].includes(formData.interest) && (
+                      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 mb-2">
+                        <p className="text-xs text-yellow-400">
+                          ℹ️ Brochure is available only for <strong>Generative AI Builder</strong> and <strong>AWS Cloud</strong> courses. Please select one to proceed.
+                        </p>
+                      </div>
+                    )}
+
                     <button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-2 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all flex items-center justify-center gap-2 text-sm"
+                      disabled={!["gen-ai", "aws-cloud"].includes(formData.interest)}
+                      className={`w-full py-2 rounded-lg flex items-center justify-center gap-2 text-sm transition-all ${
+                        ["gen-ai", "aws-cloud"].includes(formData.interest)
+                          ? "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50 cursor-pointer"
+                          : "bg-gray-600 opacity-50 cursor-not-allowed"
+                      }`}
                     >
-                      Send Enquiry <ArrowRight className="w-4 h-4" />
+                      Download Brochure <ArrowRight className="w-4 h-4" />
                     </button>
 
                     <p className="text-xs text-gray-400 text-center">

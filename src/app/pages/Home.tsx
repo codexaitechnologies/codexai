@@ -21,6 +21,7 @@ import {
   UserCheck,
   Building2,
 } from "lucide-react";
+import { CoursesSection } from "../components/home/CoursesSection";
 
 export default function Home() {
   return (
@@ -66,7 +67,7 @@ export default function Home() {
                   to="/enquiry"
                   className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all flex items-center gap-2 justify-center"
                 >
-                  Send Enquiry <ArrowRight className="w-5 h-5" />
+                  Download Brochure <ArrowRight className="w-5 h-5" />
                 </Link>
                 <a
                   href="#courses"
@@ -144,202 +145,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Courses Section */}
-       <section id="courses" className="py-20">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-6xl mb-4">
-              Our <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Premium</span> Courses
-            </h2>
-            <p className="text-xl text-gray-400">Choose your career transformation path</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Course 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="group relative bg-gradient-to-br from-blue-950/50 to-black border border-blue-500/30 rounded-2xl p-8 hover:border-blue-500 transition-all hover:shadow-xl hover:shadow-blue-500/20"
-            >
-              <div className="absolute top-4 right-4 bg-blue-500 text-xs px-3 py-1 rounded-full">
-                2 Months
-              </div>
-              <Code className="w-12 h-12 text-blue-500 mb-4" />
-              <h3 className="text-3xl mb-4">Java Engineering + AI Integration</h3>
-              <p className="text-gray-400 mb-6">
-                Master Java fundamentals, OOP, collections, file handling, and build real backend projects.
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Core Java + OOP Concepts</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Collections & Exception Handling</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>File I/O & Real Projects</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-blue-400">3+ Projects</span>
-                <Link
-                  to="/course/java-backend"
-                  className="flex items-center gap-2 text-blue-400 group-hover:text-blue-300 transition-colors"
-                >
-                  View Curriculum <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Course 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="group relative bg-gradient-to-br from-purple-950/50 to-black border border-purple-500/30 rounded-2xl p-8 hover:border-purple-500 transition-all hover:shadow-xl hover:shadow-purple-500/20"
-            >
-              <div className="absolute top-4 right-4 bg-purple-500 text-xs px-3 py-1 rounded-full">
-                8 Weeks
-              </div>
-              <Cloud className="w-12 h-12 text-purple-500 mb-4" />
-              <h3 className="text-3xl mb-4">AWS Cloud + AI Integration</h3>
-              <p className="text-gray-400 mb-6">
-                Learn EC2, S3, IAM, CI/CD, Docker, serverless computing with hands-on AWS labs and AI services integration.
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>AWS Core Services + IAM</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Docker & CI/CD Pipelines</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Serverless & Mock Interviews</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-purple-400">4+ Projects</span>
-                <Link
-                  to="/course/aws-cloud"
-                  className="flex items-center gap-2 text-purple-400 group-hover:text-purple-300 transition-colors"
-                >
-                  View Curriculum <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Course 3 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="group relative bg-gradient-to-br from-orange-950/50 to-black border border-orange-500/30 rounded-2xl p-8 hover:border-orange-500 transition-all hover:shadow-xl hover:shadow-orange-500/20"
-            >
-              <div className="absolute top-4 right-4 bg-orange-500 text-xs px-3 py-1 rounded-full">
-                3 Months
-              </div>
-              <Sparkles className="w-12 h-12 text-orange-500 mb-4" />
-              <h3 className="text-3xl mb-4">GenAI Foundation Program</h3>
-              <p className="text-gray-400 mb-6">
-                Prompt engineering, LLMs, RAG, AI agents, and production-ready AI applications.
-              </p>
-              <div className="space-y-2 mb-6">
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Prompt Engineering + LLM APIs</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>RAG & AI Agents</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Production AI Apps + Capstone</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-orange-400">5+ Projects</span>
-                <Link
-                  to="/course/gen-ai"
-                  className="flex items-center gap-2 text-orange-400 group-hover:text-orange-300 transition-colors"
-                >
-                  View Curriculum <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Course 4 - FLAGSHIP */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="group relative bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-orange-500/20 border-2 border-blue-500 rounded-2xl p-8 hover:shadow-2xl hover:shadow-blue-500/30 transition-all"
-            >
-              <div className="absolute top-4 right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-xs px-3 py-1 rounded-full">
-                🔥 FLAGSHIP
-              </div>
-              <div className="flex items-center gap-3 mb-4">
-                <Zap className="w-12 h-12 text-yellow-500" />
-              </div>
-              <h3 className="text-3xl mb-4">Full Stack + AI Integration Program</h3>
-              <p className="text-gray-400 mb-6">
-                Complete 6-month transformation: Java Backend + AWS Cloud + Generative AI integrated throughout with system design & career mentorship.
-              </p>
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Full Java Backend</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>AWS Cloud Mastery</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Generative AI</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>System Design</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Interview Prep</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>Career Mentorship</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-blue-400">15+ Projects</span>
-                <Link
-                  to="/course/full-stack-ai"
-                  className="flex items-center gap-2 text-blue-400 group-hover:text-blue-300 transition-colors"
-                >
-                  View Curriculum <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <CoursesSection />
 
       {/* Learning Experience Section */}
       <section className="py-20 bg-gradient-to-b from-blue-950/10 via-purple-950/10 to-transparent">
@@ -672,7 +478,7 @@ export default function Home() {
                 to="/enquiry"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-orange-500/50 transition-all text-lg"
               >
-                Send Enquiry <ArrowRight className="w-5 h-5" />
+                Download Brochure <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
           </motion.div>

@@ -60,7 +60,7 @@ export function Header() {
           <div className="hidden md:flex items-center gap-4">
             <Link to="/enquiry">
               <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                Send Enquiry
+                Download Brochure
               </Button>
             </Link>
           </div>
@@ -108,7 +108,7 @@ export function Header() {
               </Link>
               <Link to="/enquiry" onClick={() => setMobileMenuOpen(false)}>
                 <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600">
-                  Send Enquiry
+                  Download Brochure
                 </Button>
               </Link>
             </nav>

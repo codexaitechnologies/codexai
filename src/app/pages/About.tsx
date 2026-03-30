@@ -276,7 +276,7 @@ export default function About() {
               to="/enquiry"
               className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg hover:shadow-lg transition-all text-lg"
             >
-              Send Enquiry <ArrowRight className="w-5 h-5" />
+              Download Brochure <ArrowRight className="w-5 h-5" />
             </Link>
           </motion.div>
         </div>

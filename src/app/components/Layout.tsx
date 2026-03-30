@@ -34,7 +34,7 @@ export default function Layout() {
               to="/enquiry"
               className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all"
             >
-              Send Enquiry
+              Download Brochure
             </Link>
           </div>
 
@@ -77,7 +77,7 @@ export default function Layout() {
                 className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2 rounded-lg text-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Send Enquiry
+                Download Brochure
               </Link>
             </div>
           </div>
@@ -135,7 +135,7 @@ export default function Layout() {
                   About Us
                 </Link>
                 <Link to="/enquiry" className="hover:text-blue-400 transition-colors">
-                  Send Enquiry
+                  Download Brochure
                 </Link>
                 <a href="#contact" className="hover:text-blue-400 transition-colors">
                   Contact

@@ -1,155 +1,173 @@
 import { Link } from "react-router";
-import { Button } from "../ui/button";
-import { Clock, Award, ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "motion/react";
+import { ArrowRight, Code, Cloud, Sparkles, CheckCircle, Zap } from "lucide-react";
+import type { Course } from "../../types/course";
 
 export function CoursesSection() {
-  const courses = [
+  const courses: Course[] = [
     {
-      id: "java-backend",
-      title: "Java Backend + AI Integration",
+      title: "Java Engineering + AI Integration",
       duration: "2 Months",
-      level: "Beginner to Intermediate",
-      description: "Master Java fundamentals, OOP, collections, file handling, and build real backend systems integrated with AI capabilities.",
-      skills: ["Core Java", "OOP", "Collections", "File Handling", "AI Integration"],
-      projects: "5+ Projects",
-      gradient: "from-orange-500 to-red-500",
-      bgGradient: "from-orange-500/10 to-red-500/10",
-      image: "https://images.unsplash.com/photo-1641156803026-0b819059b04d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWNrZW5kJTIwc2VydmVyJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NzQ2OTkxNTV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      icon: Code,
+      description:
+        "Master Java fundamentals, OOP, collections, file handling, and build real backend projects.",
+      features: [
+        "Core Java + OOP Concepts",
+        "Collections & Exception Handling",
+        "File I/O & Real Projects",
+      ],
+      projectCount: "3+ Projects",
+      link: "/course/java-backend",
+      colorClass: {
+        from: "from-blue-950/50",
+        to: "to-black",
+        icon: "text-blue-500",
+        badge: "bg-blue-500",
+        border: "border-blue-500/30",
+        hoverBorder: "hover:border-blue-500",
+        hoverShadow: "hover:shadow-xl hover:shadow-blue-500/20",
+      },
     },
     {
-      id: "aws-cloud",
       title: "AWS Cloud + AI Integration",
       duration: "8 Weeks",
-      level: "Intermediate",
-      description: "Build, deploy, and scale AI-enabled applications on AWS with hands-on labs covering EC2, S3, IAM, Docker, CI/CD & AI services.",
-      skills: ["EC2", "S3", "IAM", "Docker", "AI Integration", "Serverless"],
-      projects: "4+ AWS Labs",
-      gradient: "from-blue-500 to-cyan-500",
-      bgGradient: "from-blue-500/10 to-cyan-500/10",
-      image: "https://images.unsplash.com/photo-1721444127971-b7d0023bbef2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjbG91ZCUyMGNvbXB1dGluZyUyMHRlY2hub2xvZ3klMjBhYnN0cmFjdHxlbnwxfHx8fDE3NzQ2OTkxNTN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      icon: Cloud,
+      description:
+        "Learn EC2, S3, IAM, CI/CD, Docker, serverless computing with hands-on AWS labs and AI services integration.",
+      features: [
+        "AWS Core Services + IAM",
+        "Docker & CI/CD Pipelines",
+        "Serverless & Mock Interviews",
+      ],
+      projectCount: "4+ Projects",
+      link: "/course/aws-cloud",
+      colorClass: {
+        from: "from-purple-950/50",
+        to: "to-black",
+        icon: "text-purple-500",
+        badge: "bg-purple-500",
+        border: "border-purple-500/30",
+        hoverBorder: "hover:border-purple-500",
+        hoverShadow: "hover:shadow-xl hover:shadow-purple-500/20",
+      },
     },
     {
-      id: "gen-ai",
-      title: "Generative AI Builder Program",
+      title: "GenAI Foundation Program",
       duration: "3 Months",
-      level: "Intermediate to Advanced",
-      description: "Learn prompt engineering, LLMs, RAG, AI agents, and build production-ready AI applications.",
-      skills: ["Prompt Engineering", "LLMs", "RAG", "AI Agents", "LangChain", "Vector DBs"],
-      projects: "6+ AI Projects",
-      gradient: "from-purple-500 to-pink-500",
-      bgGradient: "from-purple-500/10 to-pink-500/10",
-      image: "https://images.unsplash.com/photo-1737505599159-5ffc1dcbc08f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwbmV1cmFsJTIwbmV0d29ya3xlbnwxfHx8fDE3NzQ2ODUzODJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      icon: Sparkles,
+      description: "Prompt engineering, LLMs, RAG, AI agents, and production-ready AI applications.",
+      features: [
+        "Prompt Engineering + LLM APIs",
+        "RAG & AI Agents",
+        "Production AI Apps + Capstone",
+      ],
+      projectCount: "5+ Projects",
+      link: "/course/gen-ai",
+      colorClass: {
+        from: "from-orange-950/50",
+        to: "to-black",
+        icon: "text-orange-500",
+        badge: "bg-orange-500",
+        border: "border-orange-500/30",
+        hoverBorder: "hover:border-orange-500",
+        hoverShadow: "hover:shadow-xl hover:shadow-orange-500/20",
+      },
     },
     {
-      id: "full-stack-ai",
       title: "Full Stack + AI Integration Program",
       duration: "6 Months",
-      level: "Complete Program",
-      description: "The ultimate program combining Python + Machine Learning + Generative AI integrated throughout the full stack with system design & interview prep.",
-      skills: ["Full Stack", "Backend", "Cloud", "AI Integration", "System Design", "DSA"],
-      projects: "15+ End-to-End Projects",
-      gradient: "from-blue-600 to-purple-600",
-      bgGradient: "from-blue-600/10 to-purple-600/10",
-      image: "https://images.unsplash.com/photo-1768796370577-c6e8b708b980?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwY29kaW5nJTIwd29ya3Nob3AlMjBsZWFybmluZ3xlbnwxfHx8fDE3NzQ2OTkxNTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      icon: Zap,
+      description:
+        "Complete 6-month transformation: Java Backend + AWS Cloud + Generative AI integrated throughout with system design & career mentorship.",
+      features: [
+        "Full Java Backend",
+        "AWS Cloud Mastery",
+        "Generative AI",
+        "System Design",
+        "Interview Prep",
+        "Career Mentorship",
+      ],
+      projectCount: "15+ Projects",
+      link: "/course/full-stack-ai",
+      colorClass: {
+        from: "from-blue-500/20 via-purple-500/20",
+        to: "to-orange-500/20",
+        icon: "text-yellow-500",
+        badge: "bg-gradient-to-r from-blue-500 to-purple-500",
+        border: "border-2 border-blue-500",
+        hoverBorder: "hover:shadow-2xl",
+        hoverShadow: "hover:shadow-blue-500/30",
+      },
+      isFlagship: true,
     },
   ];
 
   return (
-    <section id="courses" className="py-20 bg-black relative">
-      <div className="px-4 mb-16">
-        {/* Section Header */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
-            <Sparkles size={16} className="text-blue-400" />
-            <span className="text-sm text-blue-400">Transform Your Career</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Choose Your Path to <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">Success</span>
+    <section id="courses" className="py-20">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-6xl mb-4">
+            Our <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Premium</span> Courses
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Industry-focused programs designed for real-world career outcomes
-          </p>
-        </div>
-      </div>
+          <p className="text-xl text-gray-400">Choose your career transformation path</p>
+        </motion.div>
 
-      {/* Courses Horizontal Scroll */}
-      <div style={{ overflowX: 'auto', overflowY: 'hidden' }} className="pb-4">
-        <div style={{ display: 'flex', gap: '24px', minWidth: 'min-content', padding: '0 16px' }}>
-          {courses.map((course) => (
-            <div
-              key={course.id}
-              style={{ flex: '0 0 384px' }}
-              className="relative group"
+        <div className="grid md:grid-cols-2 gap-8">
+          {courses.map((course, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className={`group relative bg-gradient-to-br ${course.colorClass.from} ${course.colorClass.to} ${course.colorClass.border} rounded-2xl p-8 transition-all ${
+                course.isFlagship
+                  ? `border-2 border-blue-500 hover:shadow-2xl ${course.colorClass.hoverShadow}`
+                  : `${course.colorClass.hoverBorder} ${course.colorClass.hoverShadow}`
+              }`}
             >
-              {/* Glow Effect */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${course.bgGradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity`}></div>
-
-              {/* Card */}
-              <div className="relative bg-gray-900/50 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all h-full flex flex-col">
-                {/* Image */}
-                <div className="relative overflow-hidden h-48">
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-                  
-                  {/* Duration Badge */}
-                  <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-2">
-                    <Clock size={14} className="text-blue-400" />
-                    <span className="text-sm text-white">{course.duration}</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-1 justify-between">
-                  <div>
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-xl font-bold text-white mb-2">{course.title}</h3>
-                        <span className="text-sm text-gray-400">{course.level}</span>
-                      </div>
-                    </div>
-
-                    <p className="text-gray-300 mb-4 leading-relaxed text-sm">
-                      {course.description}
-                    </p>
-
-                    {/* Skills */}
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-white mb-2">Key Skills</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {course.skills.map((skill, index) => (
-                          <span
-                            key={index}
-                            className={`px-2 py-1 rounded-full text-xs bg-gradient-to-r ${course.bgGradient} border border-white/10 text-white`}
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Projects Badge */}
-                    <div className="flex items-center gap-2 mb-4">
-                      <Award size={16} className="text-purple-400" />
-                      <span className="text-sm text-gray-300">{course.projects}</span>
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <Link to={`/course/${course.id}`} className="block">
-                    <Button
-                      className={`w-full bg-gradient-to-r ${course.gradient} hover:opacity-90 group`}
-                    >
-                      View Curriculum
-                      <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
-                    </Button>
-                  </Link>
-                </div>
+              <div
+                className={`absolute top-4 right-4 ${course.colorClass.badge} text-xs px-3 py-1 rounded-full`}
+              >
+                {course.isFlagship ? "🔥 FLAGSHIP" : course.duration}
               </div>
-            </div>
+              <course.icon className={`w-12 h-12 ${course.colorClass.icon} mb-4`} />
+              <h3 className="text-3xl mb-4">{course.title}</h3>
+              <p className="text-gray-400 mb-6">{course.description}</p>
+              {course.isFlagship ? (
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  {course.features.map((feature, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-2 mb-6">
+                  {course.features.map((feature, i) => (
+                    <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="flex items-center justify-between">
+                <span className={course.colorClass.icon}>{course.projectCount}</span>
+                <Link
+                  to={course.link}
+                  className={`flex items-center gap-2 ${course.colorClass.icon} group-hover:opacity-80 transition-colors`}
+                >
+                  View Curriculum <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
