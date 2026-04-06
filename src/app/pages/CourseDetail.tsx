@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router";
-import { useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import {
   ArrowLeft,
@@ -18,6 +18,9 @@ import {
 import type { Course } from "../types/course";
 import { useCourses } from "../context/CoursesContext";
 import { getIconComponent } from "../utils/iconMap";
+import {
+  formatCurrency,
+} from "../utils/razorpayUtils";
 
 // Helper function to extract color from colorClass icon property
 function extractColorFromClass(iconClass: string): string {
@@ -28,12 +31,19 @@ function extractColorFromClass(iconClass: string): string {
 
 export default function CourseDetail() {
   const { courseId } = useParams<{ courseId: string }>();
+  const navigate = useNavigate();
   const { courses } = useCourses();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Scroll to top when route changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [courseId]);
+
+  // Handle enrollment navigation
+  const handleEnrollment = () => {
+    navigate(`/enrollment/${courseId}`);
+  };
 
   // Find course from API by matching link
   const courseData = courses.find((c) => c.link === `/course/${courseId}`);
@@ -90,12 +100,17 @@ export default function CourseDetail() {
             </div>
             <h1 className="text-5xl md:text-7xl mb-6">{course.title}</h1>
             <p className="text-xl text-gray-300 max-w-3xl mb-8">{course.description}</p>
-            <Link
-              to="/workshop"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all"
+            <button
+              onClick={handleEnrollment}
+              disabled={isLoading}
+              className={`inline-flex items-center gap-2 px-8 py-4 rounded-lg transition-all ${
+                isLoading
+                  ? "bg-gray-600 opacity-50 cursor-not-allowed"
+                  : "bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-blue-500/50 cursor-pointer"
+              }`}
             >
-              Enroll Now
-            </Link>
+              {isLoading ? "Processing..." : `Enroll Now`}
+            </button>
           </motion.div>
         </div>
       </section>
@@ -258,14 +273,19 @@ export default function CourseDetail() {
           >
             <h2 className="text-4xl md:text-5xl mb-6">Ready to Start Your Journey?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Join our free workshop to experience the CodeXAI difference
+              Enroll now and start learning from our expert instructors
             </p>
-            <Link
-              to="/workshop"
-              className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg hover:shadow-lg transition-all text-lg"
+            <button
+              onClick={handleEnrollment}
+              disabled={isLoading}
+              className={`inline-flex items-center gap-2 px-8 py-4 rounded-lg text-lg transition-all ${
+                isLoading
+                  ? "bg-gray-400 opacity-50 cursor-not-allowed text-gray-700"
+                  : "bg-white text-black hover:shadow-lg cursor-pointer"
+              }`}
             >
-              Book Free Workshop
-            </Link>
+              {isLoading ? "Processing..." : `Enroll Now`}
+            </button>
           </motion.div>
         </div>
       </section>

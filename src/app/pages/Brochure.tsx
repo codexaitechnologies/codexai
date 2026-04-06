@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import {
   MapPin,
@@ -19,9 +19,11 @@ import {
 import type { Enquiry } from "../types/enquiry";
 import { createUser } from "../utils/apiUtils";
 import { useCourses } from "../context/CoursesContext";
+import { useAuth } from "../context/AuthContext";
 
-export default function Workshop() {
+export default function Brochure() {
   const { courses, loading: loadingCourses } = useCourses();
+  const { user, isAuthenticated } = useAuth();
   
   const [formData, setFormData] = useState({
     name: "",
@@ -31,6 +33,18 @@ export default function Workshop() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Auto-fill form with logged-in user data
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: user.fullName || "",
+        email: user.email || "",
+        phone: user.phoneNumber || "",
+      }));
+    }
+  }, [isAuthenticated, user]);
 
   // Update interest field when courses load
   if (courses.length > 0 && formData.interest === "") {
@@ -217,8 +231,11 @@ export default function Workshop() {
                           name="name"
                           value={formData.name}
                           onChange={handleChange}
+                          disabled={isAuthenticated}
                           required
-                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                          className={`w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm ${
+                            isAuthenticated ? "opacity-75 cursor-not-allowed" : ""
+                          }`}
                           placeholder="John Doe"
                         />
                       </div>
@@ -233,8 +250,11 @@ export default function Workshop() {
                           name="email"
                           value={formData.email}
                           onChange={handleChange}
+                          disabled={isAuthenticated}
                           required
-                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                          className={`w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm ${
+                            isAuthenticated ? "opacity-75 cursor-not-allowed" : ""
+                          }`}
                           placeholder="john@example.com"
                         />
                       </div>
@@ -249,8 +269,11 @@ export default function Workshop() {
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
+                          disabled={isAuthenticated}
                           required
-                          className="w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
+                          className={`w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm ${
+                            isAuthenticated ? "opacity-75 cursor-not-allowed" : ""
+                          }`}
                           placeholder="+91 98765 43210"
                         />
                       </div>
@@ -600,76 +623,10 @@ export default function Workshop() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-6xl mb-4">What Attendees Say</h2>
-            <p className="text-xl text-gray-400">Previous workshop feedback</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Rahul Sharma",
-                role: "Software Engineer",
-                text: "The workshop was eye-opening! The hands-on approach and real-world examples convinced me to enroll immediately.",
-              },
-              {
-                name: "Priya Patel",
-                role: "Student",
-                text: "Best tech workshop I've attended. The instructors are knowledgeable and the content is industry-relevant.",
-              },
-              {
-                name: "Amit Kumar",
-                role: "Career Switcher",
-                text: "After the workshop, I knew CodeXAI was the right choice for my career transformation and professional growth!",
-              },
-            ].map((testimonial, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-6 rounded-xl bg-gradient-to-br from-blue-950/30 to-transparent border border-blue-500/30"
-              >
-                <p className="text-gray-300 mb-6 italic">"{testimonial.text}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full"></div>
-                  <div>
-                    <div className="font-semibold">{testimonial.name}</div>
-                    <div className="text-sm text-gray-400">{testimonial.role}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-b from-blue-950/20 via-purple-950/20 to-transparent">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 text-center"
-          >
-            <h2 className="text-4xl md:text-5xl mb-6">
-              Transform Your <span className="text-yellow-400">Tech Career</span> Today
+            <h2 className="text-4xl md:text-6xl mb-4">
+              Student <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Success Stories</span>
             </h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Join thousands of professionals who have accelerated their careers with CodeXAI.
-              Limited seats available with early bird discounts!
-            </p>
-            <a
-              href="#top"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg hover:shadow-lg transition-all text-lg"
-            >
-              Send Your Enquiry Now <ArrowRight className="w-5 h-5" />
-            </a>
+            <p className="text-xl text-gray-400">Hear from our successful students</p>
           </motion.div>
         </div>
       </section>

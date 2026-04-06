@@ -273,7 +273,7 @@ export default function About() {
               Learn more about our programs and send us your enquiry to get started with your transformation.
             </p>
             <Link
-              to="/enquiry"
+              to="/brochure"
               className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg hover:shadow-lg transition-all text-lg"
             >
               Download Brochure <ArrowRight className="w-5 h-5" />

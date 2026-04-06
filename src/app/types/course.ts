@@ -13,6 +13,7 @@ export interface Course {
   description: string;
   features: string[];
   projectCount: string;
+  price?: number;
   link: string;
   colorClass: {
     from: string;

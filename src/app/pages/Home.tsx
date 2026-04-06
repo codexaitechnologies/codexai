@@ -64,7 +64,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  to="/enquiry"
+                  to="/brochure"
                   className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-blue-500/50 transition-all flex items-center gap-2 justify-center"
                 >
                   Download Brochure <ArrowRight className="w-5 h-5" />
@@ -446,7 +446,7 @@ export default function Home() {
                 accelerate your tech career.
               </p>
               <Link
-                to="/enquiry"
+                to="/brochure"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-orange-500/50 transition-all text-lg"
               >
                 Download Brochure <ArrowRight className="w-5 h-5" />

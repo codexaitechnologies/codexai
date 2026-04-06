@@ -1,0 +1,1031 @@
+{
+  "info": {
+    "_postman_id": "codexai-backend-api",
+    "name": "CodexAI Backend API",
+    "description": "Complete REST API for CodexAI backend with User and Course management endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "codexai"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123\",\n  \"fullName\": \"John Doe\",\n  \"phoneNumber\": \"+91-9876543210\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/signup",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "signup"
+              ]
+            },
+            "description": "Register a new user with email, password, fullName, and phoneNumber. Password must be at least 8 characters with uppercase, lowercase, and numbers."
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login user with email and password. Returns accessToken, idToken, and refreshToken."
+          },
+          "response": []
+        },
+        {
+          "name": "Confirm Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"confirmationCode\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/confirm-email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "confirm-email"
+              ]
+            },
+            "description": "Verify email address with OTP code sent to email"
+          },
+          "response": []
+        },
+        {
+          "name": "Resend Email Code",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/resend-code",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "resend-code"
+              ]
+            },
+            "description": "Resend email verification code to user's email address"
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/forgot-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "forgot-password"
+              ]
+            },
+            "description": "Initiate password reset flow. Sends password reset code to user's email."
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"confirmationCode\": \"123456\",\n  \"newPassword\": \"NewSecurePass123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/reset-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "reset-password"
+              ]
+            },
+            "description": "Complete password reset with confirmation code from email"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessToken\": \"{{accessToken}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Logout user and invalidate all tokens. Can use accessToken in body or Authorization header."
+          },
+          "response": []
+        },
+        {
+          "name": "Google Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"googleIdToken\": \"<google-id-token>\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/google-signup",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "google-signup"
+              ]
+            },
+            "description": "Sign up or login with Google OAuth. (Implementation pending - awaiting Google OAuth token validation)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"phoneNumber\": \"+91-9876543210\",\n  \"course\": \"Web Development\",\n  \"courseId\": \"550e8400-e29b-41d4-a716-446655440001\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Creates a new user with the provided information"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/{{userId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "description": "Retrieves a specific user by their ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Jane Doe\",\n  \"course\": \"Data Science\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/{{userId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "description": "Updates one or more fields of an existing user. All fields are optional."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/{{userId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "description": "Deletes a user permanently from the database"
+          },
+          "response": []
+        },
+        {
+          "name": "List Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users?limit=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items to return (default: 10, max: 100)"
+                },
+                {
+                  "key": "lastEvaluatedKey",
+                  "value": "",
+                  "description": "Base64-encoded key for pagination",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Retrieves a paginated list of all users with optional pagination support"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "Create Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Web Development\",\n  \"duration\": \"12 weeks\",\n  \"iconName\": \"Code\",\n  \"description\": \"Learn full-stack web development with modern technologies\",\n  \"features\": [\n    \"HTML/CSS\",\n    \"JavaScript\",\n    \"React\",\n    \"Node.js\",\n    \"MongoDB\"\n  ],\n  \"projectCount\": \"5\",\n  \"link\": \"/courses/web-dev\",\n  \"colorClass\": {\n    \"from\": \"from-blue-500\",\n    \"to\": \"to-cyan-500\",\n    \"icon\": \"text-blue-600\",\n    \"badge\": \"bg-blue-100\",\n    \"border\": \"border-blue-200\",\n    \"hoverBorder\": \"hover:border-blue-400\",\n    \"hoverShadow\": \"hover:shadow-blue-500/20\"\n  },\n  \"isFlagship\": true,\n  \"image\": \"https://example.com/courses/web-dev.jpg\",\n  \"color\": \"#0066FF\",\n  \"highlights\": [\n    \"Industry-standard technologies\",\n    \"Live project experience\",\n    \"1-on-1 mentoring sessions\",\n    \"Job placement assistance\"\n  ],\n  \"curriculum\": [\n    {\n      \"week\": \"1-2\",\n      \"title\": \"HTML & CSS Fundamentals\",\n      \"topics\": [\n        \"HTML5 structure\",\n        \"CSS layouts\",\n        \"Responsive design\",\n        \"Accessibility basics\"\n      ]\n    },\n    {\n      \"week\": \"3-5\",\n      \"title\": \"JavaScript Essentials\",\n      \"topics\": [\n        \"ES6+ syntax\",\n        \"DOM manipulation\",\n        \"Async programming\",\n        \"API integration\"\n      ]\n    }\n  ],\n  \"outcomes\": [\n    \"Build responsive websites using HTML, CSS, and JavaScript\",\n    \"Master React for building dynamic user interfaces\",\n    \"Develop backend APIs with Node.js and Express\",\n    \"Design and manage databases with MongoDB\",\n    \"Deploy applications to production environments\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/courses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ]
+            },
+            "description": "Creates a new course with the provided information"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Course",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/courses/{{courseId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId}}"
+              ]
+            },
+            "description": "Retrieves a specific course by its ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Course",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"duration\": \"10 weeks\",\n  \"projectCount\": \"6\",\n  \"isFlagship\": false,\n  \"image\": \"https://example.com/courses/web-dev-updated.jpg\",\n  \"color\": \"#FF6600\",\n  \"highlights\": [\n    \"Advanced techniques\",\n    \"Portfolio projects\",\n    \"Internship opportunities\"\n  ],\n  \"curriculum\": [\n    {\n      \"week\": \"1-3\",\n      \"title\": \"HTML & CSS Mastery\",\n      \"topics\": [\n        \"Semantic HTML\",\n        \"CSS Grid\",\n        \"Flexbox\",\n        \"Mobile optimization\"\n      ]\n    }\n  ],\n  \"outcomes\": [\n    \"Deploy full-stack applications\",\n    \"Lead development teams\",\n    \"Contribute to open-source\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/courses/{{courseId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId}}"
+              ]
+            },
+            "description": "Updates one or more fields of an existing course. All fields are optional."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Course",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/courses/{{courseId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId}}"
+              ]
+            },
+            "description": "Deletes a course permanently from the database"
+          },
+          "response": []
+        },
+        {
+          "name": "List Courses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/courses?limit=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "courses"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items to return (default: 10, max: 100)"
+                },
+                {
+                  "key": "flagship",
+                  "value": "true",
+                  "description": "Filter to only flagship courses (true/false)",
+                  "disabled": true
+                },
+                {
+                  "key": "lastEvaluatedKey",
+                  "value": "",
+                  "description": "Base64-encoded key for pagination",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Retrieves a paginated list of all courses with optional filtering and pagination support"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Brochures",
+      "item": [
+        {
+          "name": "Create Brochure",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseId\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"brochureLink\": \"https://example.com/brochures/web-dev.pdf\",\n  \"description\": \"Comprehensive web development course brochure with curriculum details\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/brochures",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "brochures"
+              ]
+            },
+            "description": "Creates a new brochure associated with a course. The courseId must exist in the courses table."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Brochure",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/brochures/{{brochureId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "brochures",
+                "{{brochureId}}"
+              ]
+            },
+            "description": "Retrieves a specific brochure by its ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Brochure",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"brochureLink\": \"https://example.com/brochures/web-dev-updated.pdf\",\n  \"description\": \"Updated comprehensive web development course brochure\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/brochures/{{brochureId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "brochures",
+                "{{brochureId}}"
+              ]
+            },
+            "description": "Updates one or more fields of an existing brochure. All fields are optional. If updating courseId, it must exist in the courses table."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Brochure",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/brochures/{{brochureId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "brochures",
+                "{{brochureId}}"
+              ]
+            },
+            "description": "Deletes a brochure permanently from the database"
+          },
+          "response": []
+        },
+        {
+          "name": "List Brochures",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/brochures?limit=10",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "brochures"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of items to return (default: 10, max: 100)"
+                },
+                {
+                  "key": "courseId",
+                  "value": "",
+                  "description": "Filter brochures by courseId (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "cursor",
+                  "value": "",
+                  "description": "Base64-encoded cursor for pagination",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Retrieves a paginated list of all brochures with optional filtering by courseId and pagination support"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 500,\n  \"currency\": \"INR\",\n  \"email\": \"student@example.com\",\n  \"fullName\": \"John Doe\",\n  \"phoneNumber\": \"+91-9876543210\",\n  \"description\": \"Web Development Course\",\n  \"courseId\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"couponCode\": \"FLAT100\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/payments/create-order",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments",
+                "create-order"
+              ]
+            },
+            "description": "Create a Razorpay payment order. Optional: include couponCode to apply discount."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"razorpay_order_id\": \"order_2QlLg5lIcTuTYr\",\n  \"razorpay_payment_id\": \"pay_2QlLg5lIcTuTYr\",\n  \"razorpay_signature\": \"9ef4dffbfd84f1318f6739a3ce19f9d85851857ae648f114332d8401e0949a3d\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/payments/verify",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments",
+                "verify"
+              ]
+            },
+            "description": "Verify payment signature and confirm payment after customer completes Razorpay flow"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order Status",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/payments/order/order_2QlLg5lIcTuTYr",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "payments",
+                "order",
+                "order_2QlLg5lIcTuTYr"
+              ]
+            },
+            "description": "Get the current status of a payment order by order ID"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Coupons",
+      "item": [
+        {
+          "name": "Get All Coupons",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/coupons",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "coupons"
+              ]
+            },
+            "description": "Fetch all active, non-expired coupons available for students"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Coupon by Code",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/coupons/FLAT100",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "coupons",
+                "FLAT100"
+              ]
+            },
+            "description": "Get detailed information about a specific coupon by its code"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Coupon",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"couponCode\": \"NEWYEAR100\",\n  \"type\": \"flat\",\n  \"value\": 100,\n  \"description\": \"New Year Special - ₹100 off\",\n  \"minAmount\": 500,\n  \"maxDiscount\": null,\n  \"maxUses\": 500,\n  \"expiresAt\": \"2026-12-31T23:59:59.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/coupons/create",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "coupons",
+                "create"
+              ]
+            },
+            "description": "Create a new coupon code. Type can be 'flat' (₹ amount) or 'percentage' (% discount)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Coupon",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": 150,\n  \"maxUses\": 1000,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/coupons/update/NEWYEAR100",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "coupons",
+                "update",
+                "NEWYEAR100"
+              ]
+            },
+            "description": "Update fields of an existing coupon (value, maxUses, expiresAt, isActive, etc.)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Coupon",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/coupons/delete/NEWYEAR100",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "coupons",
+                "delete",
+                "NEWYEAR100"
+              ]
+            },
+            "description": "Delete a coupon code permanently from the system"
+          },
+          "response": []
+        },
+        {
+          "name": "Validate Coupon",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"couponCode\": \"FLAT100\",\n  \"amount\": 1500\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/coupons/validate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "coupons",
+                "validate"
+              ]
+            },
+            "description": "Validate a coupon code for a given amount and get the discount calculation"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Razorpay Webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Razorpay-Signature",
+                "value": "signature_from_razorpay"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"payment.authorized\",\n  \"payload\": {\n    \"payment\": {\n      \"id\": \"pay_xxxxx\",\n      \"order_id\": \"order_xxxxx\",\n      \"amount\": 50000,\n      \"email\": \"student@example.com\",\n      \"status\": \"captured\",\n      \"method\": \"card\",\n      \"created_at\": 1712217000,\n      \"notes\": {\n        \"fullName\": \"Student Name\",\n        \"phoneNumber\": \"+91-1234567890\",\n        \"courseId\": \"course-id\",\n        \"course\": \"Web Development\"\n      }\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/razorpay/webhook",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "razorpay",
+                "webhook"
+              ]
+            },
+            "description": "Server-to-server webhook from Razorpay. Automatic enrollment safety net if frontend fails. Not meant for manual testing - Razorpay sends these automatically. For setup, see RAZORPAY_WEBHOOK_GUIDE.md"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com",
+      "type": "string",
+      "description": "CodexAI Backend API base URL"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string",
+      "description": "JWT access token from login response"
+    },
+    {
+      "key": "userId",
+      "value": "550e8400-e29b-41d4-a716-446655440000",
+      "type": "string",
+      "description": "Replace with an actual user ID from your database"
+    },
+    {
+      "key": "courseId",
+      "value": "550e8400-e29b-41d4-a716-446655440001",
+      "type": "string",
+      "description": "Replace with an actual course ID from your database"
+    },
+    {
+      "key": "brochureId",
+      "value": "550e8400-e29b-41d4-a716-446655440002",
+      "type": "string",
+      "description": "Replace with an actual brochure ID from your database"
+    },
+    {
+      "key": "orderId",
+      "value": "order_2QlLg5lIcTuTYr",
+      "type": "string",
+      "description": "Razorpay order ID from create-order response"
+    },
+    {
+      "key": "paymentId",
+      "value": "pay_2QlLg5lIcTuTYr",
+      "type": "string",
+      "description": "Razorpay payment ID from payment completion"
+    },
+    {
+      "key": "couponCode",
+      "value": "FLAT100",
+      "type": "string",
+      "description": "Coupon code for testing (e.g., FLAT100, OFF20)"
+    },
+    {
+      "key": "razorpaySignature",
+      "value": "9ef4dffbfd84f1318f6739a3ce19f9d85851857ae648f114332d8401e0949a3d",
+      "type": "string",
+      "description": "Razorpay payment signature from webhook or client"
+    }
+  ]
+}

@@ -1,10 +1,25 @@
 import { createBrowserRouter } from "react-router";
 import Home from "./pages/Home";
 import CourseDetail from "./pages/CourseDetail";
+import Enrollment from "./pages/Enrollment";
 import About from "./pages/About";
-import Workshop from "./pages/Workshop";
+import Brochure from "./pages/Brochure";
+import FAQ from "./pages/FAQ";
+import MyCourses from "./pages/MyCourses";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import Login from "./pages/Login";
+import ConfirmEmail from "./pages/ConfirmEmail";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import Account from "./pages/Account";
+import ContactSupport from "./pages/ContactSupport";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import RefundPolicy from "./pages/RefundPolicy";
+import CookiePolicy from "./pages/CookiePolicy";
+import SignUp from "./pages/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -13,8 +28,23 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "course/:courseId", Component: CourseDetail },
+      { path: "enrollment/:courseId", Component: Enrollment },
       { path: "about", Component: About },
-      { path: "enquiry", Component: Workshop },
+      { path: "brochure", Component: Brochure },
+      { path: "faq", Component: FAQ },
+      { path: "contact", Component: ContactSupport },
+      { path: "payment-success", Component: PaymentSuccess },
+      { path: "login", Component: Login },
+      { path: "signup", Component: SignUp },
+      { path: "confirm-email", Component: ConfirmEmail },
+      { path: "forgot-password", Component: ForgotPassword },
+      { path: "reset-password", Component: ResetPassword },
+      { path: "account", Component: Account },
+      { path: "my-courses", Component: MyCourses },
+      { path: "privacy-policy", Component: PrivacyPolicy },
+      { path: "terms-and-conditions", Component: TermsAndConditions },
+      { path: "refund-policy", Component: RefundPolicy },
+      { path: "cookie-policy", Component: CookiePolicy },
       { path: "*", Component: NotFound },
     ],
   },

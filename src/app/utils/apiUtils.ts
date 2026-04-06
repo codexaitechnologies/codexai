@@ -47,6 +47,7 @@ async function apiRequest<T>(
 // Create user endpoint
 export async function createUser(userData: CreateUserRequest): Promise<User> {
   try {
+    console.log("Creating user with data:", userData);
     const response = await apiRequest<CreateUserResponse>("/users", {
       method: "POST",
       body: JSON.stringify(userData),
