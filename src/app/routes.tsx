@@ -18,6 +18,8 @@ import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
 import Legal from "./pages/Legal";
 import SignUp from "./pages/SignUp";
+import NewsFeed from "./pages/NewsFeed";
+import NewsPostDetail from "./pages/NewsPostDetail";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +42,8 @@ export const router = createBrowserRouter([
       { path: "reset-password", Component: ResetPassword },
       { path: "account", Component: Account },
       { path: "my-courses", Component: MyCourses },
+      { path: "ai-news", Component: NewsFeed },
+      { path: "ai-news/:postId", Component: NewsPostDetail },
       { path: "legal/:documentName", Component: Legal },
       { path: "*", Component: NotFound },
     ],
