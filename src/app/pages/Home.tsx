@@ -75,6 +75,12 @@ export default function Home() {
                 >
                   Explore Courses
                 </a>
+                <Link
+                  to="/ai-news"
+                  className="border border-purple-500/40 dark:border-purple-500/40 text-slate-700 dark:text-white px-8 py-4 rounded-lg hover:bg-purple-500/10 transition-all flex items-center gap-2 justify-center"
+                >
+                  AI News Feed
+                </Link>
               </div>
             </motion.div>
 

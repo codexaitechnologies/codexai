@@ -118,6 +118,9 @@ export default function Layout() {
             <Link to="/why-us" className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               Why Us
             </Link>
+            <Link to="/ai-news" className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              AI News Feed
+            </Link>
             <Link to="/contact" className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               Contact
             </Link>
@@ -259,6 +262,13 @@ export default function Layout() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
+              </Link>
+              <Link
+                to="/ai-news"
+                className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                AI News Feed
               </Link>
 
               {/* Mobile Profile or Login */}
