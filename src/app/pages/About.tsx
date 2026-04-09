@@ -97,7 +97,7 @@ export default function About() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-6xl mb-4">
-              Why <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">CodeXAI</span>?
+              About <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">CodeXAI</span>
             </h2>
             <p className="text-xl text-gray-400">What makes us different</p>
           </motion.div>

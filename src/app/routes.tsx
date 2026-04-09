@@ -4,6 +4,7 @@ import CourseDetail from "./pages/CourseDetail";
 import Enrollment from "./pages/Enrollment";
 import About from "./pages/About";
 import Brochure from "./pages/Brochure";
+import WhyUs from "./pages/WhyUs";
 import FAQ from "./pages/FAQ";
 import MyCourses from "./pages/MyCourses";
 import PaymentSuccess from "./pages/PaymentSuccess";
@@ -15,10 +16,7 @@ import Account from "./pages/Account";
 import ContactSupport from "./pages/ContactSupport";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsAndConditions from "./pages/TermsAndConditions";
-import RefundPolicy from "./pages/RefundPolicy";
-import CookiePolicy from "./pages/CookiePolicy";
+import Legal from "./pages/Legal";
 import SignUp from "./pages/SignUp";
 
 export const router = createBrowserRouter([
@@ -31,6 +29,7 @@ export const router = createBrowserRouter([
       { path: "enrollment/:courseId", Component: Enrollment },
       { path: "about", Component: About },
       { path: "brochure", Component: Brochure },
+      { path: "why-us", Component: WhyUs },
       { path: "faq", Component: FAQ },
       { path: "contact", Component: ContactSupport },
       { path: "payment-success", Component: PaymentSuccess },
@@ -41,10 +40,7 @@ export const router = createBrowserRouter([
       { path: "reset-password", Component: ResetPassword },
       { path: "account", Component: Account },
       { path: "my-courses", Component: MyCourses },
-      { path: "privacy-policy", Component: PrivacyPolicy },
-      { path: "terms-and-conditions", Component: TermsAndConditions },
-      { path: "refund-policy", Component: RefundPolicy },
-      { path: "cookie-policy", Component: CookiePolicy },
+      { path: "legal/:documentName", Component: Legal },
       { path: "*", Component: NotFound },
     ],
   },

@@ -120,6 +120,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     try {
       const response = await authService.googleSignUp({ googleIdToken });
+      console.log("🔐 Setting access token:", response.accessToken);
+      console.log("👤 Setting user:", response.user);
       setAccessToken(response.accessToken);
       setUser(response.user);
     } finally {

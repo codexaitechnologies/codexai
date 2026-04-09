@@ -85,10 +85,10 @@ export function CoursesSection() {
                 </div>
               )}
               <div className="flex items-center justify-between">
-                <span className={course.colorClass.icon}>{course.projectCount}</span>
+                <span className="text-blue-500">{course.projectCount}+ Projects</span>
                 <Link
                   to={course.link}
-                  className={`flex items-center gap-2 ${course.colorClass.icon} group-hover:opacity-80 transition-colors`}
+                  className={`flex items-center gap-2 text-blue-500 group-hover:opacity-80 transition-colors`}
                 >
                   View Curriculum <ArrowRight className="w-4 h-4" />
                 </Link>

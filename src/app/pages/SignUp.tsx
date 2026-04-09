@@ -2,11 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, User, Phone, Loader, Check, AlertCircle } from "lucide-react";
 import { motion } from "motion/react";
+import { GoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../context/AuthContext";
+import LegalDocumentModal from "../components/LegalDocumentModal";
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const { signup, isAuthenticated, isLoading } = useAuth();
+  const { signup, isAuthenticated, isLoading, googleSignUp } = useAuth();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +19,10 @@ export default function SignUp() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [apiError, setApiError] = useState("");
+
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
 
   // Field-level error states
   const [fieldErrors, setFieldErrors] = useState({
@@ -263,6 +269,36 @@ export default function SignUp() {
   const handleGoogleSignUp = () => {
     console.log("Google signup initiated");
     alert("Google sign up will be implemented soon");
+  };
+
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    try {
+      setApiError("");
+      const googleIdToken = credentialResponse.credential;
+      if (!googleIdToken) {
+        throw new Error("Failed to get Google token");
+      }
+      
+      console.log("🔐 Google token received");
+      console.log("📋 Token:", googleIdToken);
+      console.log("🔐 Token length:", googleIdToken.length);
+      console.log("📦 Full credential response:", credentialResponse);
+      console.log("✅ Authenticating with backend...");
+      await googleSignUp(googleIdToken);
+      
+      // Redirect to home or dashboard on successful signup
+      console.log("✅ Google signup successful");
+      navigate("/");
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Google signup failed. Please try again.";
+      setApiError(errorMessage);
+      console.error("Google signup error:", err);
+    }
+  };
+
+  const handleGoogleError = () => {
+    setApiError("Google signup failed. Please try again.");
+    console.error("Google signup error occurred");
   };
 
   const passwordStrength = {
@@ -574,19 +610,27 @@ export default function SignUp() {
                   />
                   <span className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                     I agree to the{" "}
-                    <Link
-                      to="/terms-and-conditions"
-                      className="text-blue-600 dark:text-blue-400 font-semibold hover:underline"
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedDocument("Terms & Conditions");
+                        setIsModalOpen(true);
+                      }}
+                      className="text-blue-600 dark:text-blue-400 font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-blue-400 rounded px-1"
                     >
-                      Terms and Conditions
-                    </Link>{" "}
+                      Terms & Conditions
+                    </button>{" "}
                     and{" "}
-                    <Link
-                      to="/privacy-policy"
-                      className="text-blue-600 dark:text-blue-400 font-semibold hover:underline"
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedDocument("Privacy Policy");
+                        setIsModalOpen(true);
+                      }}
+                      className="text-blue-600 dark:text-blue-400 font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-blue-400 rounded px-1"
                     >
                       Privacy Policy
-                    </Link>
+                    </button>
                   </span>
                 </label>
                 {fieldErrors.terms && (
@@ -631,22 +675,14 @@ export default function SignUp() {
             </div>
 
             {/* Google Sign Up */}
-            <button
-              type="button"
-              onClick={handleGoogleSignUp}
-              disabled={isLoading}
-              className="w-full flex items-center justify-center gap-3 py-3 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M12 11.04V14.12H19.06C18.66 15.56 17.38 17.75 14.62 17.75C12.14 17.75 9.96 15.77 9.96 13.04C9.96 10.31 12.14 8.33 14.62 8.33C15.81 8.33 16.77 8.82 17.38 9.38L19.36 7.55C18.27 6.61 16.82 6 14.62 6C10.16 6 6.5 9.49 6.5 13.39C6.5 17.29 10.16 20.87 14.62 20.87C18.77 20.87 21.38 18.23 21.38 14.17C21.38 13.78 21.34 13.32 21.28 12.86H12V11.04Z"
-                />
-              </svg>
-              <span className="text-slate-700 dark:text-white font-medium">
-                Sign up with Google
-              </span>
-            </button>
+            <div className="w-full flex justify-center">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleError}
+                text="signup_with"
+                locale="en"
+              />
+            </div>
 
             {/* Login Link */}
             <p className="text-center mt-8 text-slate-600 dark:text-slate-400">
@@ -689,6 +725,16 @@ export default function SignUp() {
           </div>
         </motion.div>
       </div>
+
+      {/* Legal Document Modal */}
+      <LegalDocumentModal
+        isOpen={isModalOpen}
+        documentName={selectedDocument}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedDocument(null);
+        }}
+      />
     </div>
   );
 }

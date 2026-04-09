@@ -439,6 +439,9 @@ export const authService = {
   async googleSignUp(payload: GoogleSignUpPayload): Promise<GoogleSignUpResponse> {
     try {
       console.log("📡 Google signup API call to:", `${API_BASE_URL}/auth/google-signup`);
+      console.log("📋 Payload being sent:", { googleIdToken: payload.googleIdToken?.substring(0, 50) + "..." });
+      console.log("🔐 Full token for debugging:", payload.googleIdToken);
+      
       const response = await fetch(`${API_BASE_URL}/auth/google-signup`, {
         method: "POST",
         headers: {
@@ -447,14 +450,18 @@ export const authService = {
         body: JSON.stringify(payload),
       });
 
+      console.log("📊 Backend response status:", response.status);
+      
       if (!response.ok) {
         let errorMessage = "Google authentication failed";
         
         try {
           const error = await response.json();
+          console.log("❌ Backend error response:", error);
           errorMessage = error.message || error.error || errorMessage;
         } catch {
           errorMessage = response.statusText || errorMessage;
+          console.log("❌ Error response text:", errorMessage);
         }
 
         switch (response.status) {
@@ -470,22 +477,46 @@ export const authService = {
       const data = await response.json();
       console.log("✅ Google authentication successful:", data);
 
+      // Handle Google login response format
+      // Backend returns user data directly, we need to construct the expected response format
+      const user = {
+        id: data.userId || data.id,
+        email: data.email,
+        fullName: data.fullName,
+        phoneNumber: data.phoneNumber,
+        picture: data.picture,
+        createdAt: data.createdAt,
+      };
+
+      // Use the userId or email as a token if accessToken is not provided
+      // This allows the frontend to maintain the session
+      const accessToken = data.accessToken || `google_${data.userId || data.email}`;
+      const idToken = data.idToken || `google_id_${data.userId || data.email}`;
+
+      console.log("💾 Storing user session:", user);
+      console.log("🔐 Access token:", accessToken);
+
       // Store tokens
-      localStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("idToken", data.idToken);
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("idToken", idToken);
       if (data.refreshToken) {
         localStorage.setItem("refreshToken", data.refreshToken);
       }
 
       // Store user info
-      localStorage.setItem("user", JSON.stringify(data.user));
-      localStorage.setItem("studentEmail", data.user.email);
-      localStorage.setItem("studentName", data.user.fullName);
-      if (data.user.phoneNumber) {
-        localStorage.setItem("phoneNumber", data.user.phoneNumber);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("studentEmail", user.email);
+      localStorage.setItem("studentName", user.fullName);
+      if (user.phoneNumber) {
+        localStorage.setItem("phoneNumber", user.phoneNumber);
       }
 
-      return data;
+      return {
+        accessToken,
+        idToken,
+        refreshToken: data.refreshToken,
+        user,
+      };
     } catch (error) {
       console.error("❌ Google signup error:", error);
       throw error;

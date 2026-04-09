@@ -4,10 +4,14 @@ import { useState, useEffect, useRef } from "react";
 import { useTheme } from "../context/ThemeContext";
 import { useCourses } from "../context/CoursesContext";
 import { useAuth } from "../context/AuthContext";
+import { getLegals } from "../services/legalsService";
+import type { Legal } from "../types/legals";
 
 export default function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [legals, setLegals] = useState<Legal[]>([]);
+  const [legalsLoading, setLegalsLoading] = useState(true);
   const { theme, toggleTheme } = useTheme();
   const { courses } = useCourses();
   const { user, logout, isLoading } = useAuth();
@@ -19,6 +23,22 @@ export default function Layout() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  // Fetch legal documents from API
+  useEffect(() => {
+    const fetchLegals = async () => {
+      try {
+        const response = await getLegals({ limit: 20 });
+        setLegals(response.legals);
+      } catch (err) {
+        console.error("Failed to fetch legals:", err);
+      } finally {
+        setLegalsLoading(false);
+      }
+    };
+
+    fetchLegals();
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -95,8 +115,8 @@ export default function Layout() {
             >
               Courses
             </button>
-            <Link to="/brochure" className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-              Why Us?
+            <Link to="/why-us" className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+              Why Us
             </Link>
             <Link to="/contact" className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               Contact
@@ -367,21 +387,41 @@ export default function Layout() {
           <div className="border-t border-slate-200/40 dark:border-blue-900/20 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-slate-500 dark:text-gray-400 text-sm">© 2026 CodeXAI. All rights reserved.</p>
             <div className="flex flex-wrap justify-center gap-4 text-sm">
-              <Link to="/privacy-policy" className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                Privacy Policy
-              </Link>
-              <span className="text-slate-400 dark:text-gray-600">|</span>
-              <Link to="/terms-and-conditions" className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                Terms & Conditions
-              </Link>
-              <span className="text-slate-400 dark:text-gray-600">|</span>
-              <Link to="/refund-policy" className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                Refund Policy
-              </Link>
-              <span className="text-slate-400 dark:text-gray-600">|</span>
-              <Link to="/cookie-policy" className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                Cookie Policy
-              </Link>
+              {legalsLoading ? (
+                <p className="text-slate-500 dark:text-gray-400">Loading...</p>
+              ) : legals && legals.length > 0 ? (
+                legals.map((legal, idx) => (
+                  <div key={legal.id} className="flex items-center gap-4">
+                    <Link 
+                      to={`/legal/${legal.documentName.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      {legal.documentName}
+                    </Link>
+                    {idx < legals.length - 1 && (
+                      <span className="text-slate-400 dark:text-gray-600">|</span>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <>
+                  <Link to="/legal/privacy-policy" className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    Privacy Policy
+                  </Link>
+                  <span className="text-slate-400 dark:text-gray-600">|</span>
+                  <Link to="/legal/terms-conditions" className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    Terms & Conditions
+                  </Link>
+                  <span className="text-slate-400 dark:text-gray-600">|</span>
+                  <Link to="/legal/refund-policy" className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    Refund Policy
+                  </Link>
+                  <span className="text-slate-400 dark:text-gray-600">|</span>
+                  <Link to="/legal/cookie-policy" className="text-slate-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    Cookie Policy
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

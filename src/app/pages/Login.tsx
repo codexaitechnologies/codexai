@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader, AlertCircle, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { GoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login, resendCode, isAuthenticated, isLoading } = useAuth();
+  const { login, resendCode, isAuthenticated, isLoading, googleSignUp } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -76,13 +77,34 @@ export default function Login() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Google login initiated");
-    // TODO: Implement Google OAuth with your backend
-    // 1. Initialize Google OAuth library
-    // 2. Get Google ID token
-    // 3. Call googleSignUp from useAuth context
-    alert("Google login will be implemented soon");
+  const handleGoogleSuccess = async (credentialResponse: any) => {
+    try {
+      setError("");
+      const googleIdToken = credentialResponse.credential;
+      if (!googleIdToken) {
+        throw new Error("Failed to get Google token");
+      }
+      
+      console.log("🔐 Google token received");
+      console.log("📋 Token:", googleIdToken);
+      console.log("🔐 Token length:", googleIdToken.length);
+      console.log("📦 Full credential response:", credentialResponse);
+      console.log("✅ Authenticating with backend...");
+      await googleSignUp(googleIdToken);
+      
+      // Redirect to home or dashboard on successful login
+      console.log("✅ Google login successful");
+      navigate("/");
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Google login failed. Please try again.";
+      setError(errorMessage);
+      console.error("Google login error:", err);
+    }
+  };
+
+  const handleGoogleError = () => {
+    setError("Google login failed. Please try again.");
+    console.error("Google login error occurred");
   };
 
   return (
@@ -215,22 +237,14 @@ export default function Login() {
             </div>
 
             {/* Google Login */}
-            <button
-              type="button"
-              onClick={handleGoogleLogin}
-              disabled={isLoading}
-              className="w-full flex items-center justify-center gap-3 py-3 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M12 11.04V14.12H19.06C18.66 15.56 17.38 17.75 14.62 17.75C12.14 17.75 9.96 15.77 9.96 13.04C9.96 10.31 12.14 8.33 14.62 8.33C15.81 8.33 16.77 8.82 17.38 9.38L19.36 7.55C18.27 6.61 16.82 6 14.62 6C10.16 6 6.5 9.49 6.5 13.39C6.5 17.29 10.16 20.87 14.62 20.87C18.77 20.87 21.38 18.23 21.38 14.17C21.38 13.78 21.34 13.32 21.28 12.86H12V11.04Z"
-                />
-              </svg>
-              <span className="text-slate-700 dark:text-white font-medium">
-                Sign in with Google
-              </span>
-            </button>
+            <div className="w-full flex justify-center">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleError}
+                text="signin_with"
+                locale="en"
+              />
+            </div>
 
             {/* Sign Up Link */}
             <p className="text-center mt-8 text-slate-600 dark:text-slate-400">

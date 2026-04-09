@@ -13,7 +13,6 @@ import {
   User,
   Mail,
   Phone,
-  Building2,
   Loader,
 } from "lucide-react";
 import type { Enquiry } from "../types/enquiry";
@@ -218,7 +217,7 @@ export default function Brochure() {
                 </div>
               ) : (
                 <>
-                  <h2 className="text-2xl mb-1">Get in Touch</h2>
+                  <h2 className="text-2xl mb-1">Download Brochure</h2>
                   <p className="text-gray-400 mb-4 text-sm">Tell us about your learning goals</p>
 
                   <form onSubmit={handleSubmit} className="space-y-3">
@@ -236,7 +235,7 @@ export default function Brochure() {
                           className={`w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm ${
                             isAuthenticated ? "opacity-75 cursor-not-allowed" : ""
                           }`}
-                          placeholder="John Doe"
+                          placeholder="Your Full Name"
                         />
                       </div>
                     </div>
@@ -255,7 +254,7 @@ export default function Brochure() {
                           className={`w-full bg-black/50 border border-blue-500/30 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm ${
                             isAuthenticated ? "opacity-75 cursor-not-allowed" : ""
                           }`}
-                          placeholder="john@example.com"
+                          placeholder="your.email@example.com"
                         />
                       </div>
                     </div>
@@ -323,72 +322,7 @@ export default function Brochure() {
         </div>
       </section>
 
-      {/* Company Amenities */}
-      <section className="py-20 bg-gradient-to-b from-blue-950/10 via-purple-950/10 to-transparent">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-6xl mb-4">
-              Why Choose <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">CodeXAI</span>
-            </h2>
-            <p className="text-xl text-gray-400">Premium learning experience with industry-standard facilities</p>
-          </motion.div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {[
-              {
-                icon: Users,
-                title: "1:1 Mentorship",
-                desc: "Personalized guidance from industry experts",
-                color: "blue",
-              },
-              {
-                icon: Building2,
-                title: "Great Infrastructure",
-                desc: "State-of-the-art tech campus with modern facilities",
-                color: "purple",
-              },
-              {
-                icon: Code,
-                title: "Coding Sessions",
-                desc: "Live coding workshops and hands-on projects",
-                color: "orange",
-              },
-              {
-                icon: Sparkles,
-                title: "AI Integration",
-                desc: "Learn cutting-edge AI and ML technologies",
-                color: "yellow",
-              },
-              {
-                icon: Award,
-                title: "Industry Certification",
-                desc: "Recognized certificates for career advancement",
-                color: "green",
-              },
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className={`p-6 rounded-xl bg-gradient-to-br from-${item.color}-950/30 to-transparent border border-${item.color}-500/30 hover:border-${item.color}-500/50 transition-all text-center`}
-              >
-                <div className={`w-14 h-14 bg-${item.color}-500/20 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <item.icon className={`w-7 h-7 text-${item.color}-500`} />
-                </div>
-                <h3 className="text-lg mb-2 font-semibold">{item.title}</h3>
-                <p className="text-sm text-gray-400">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* What You'll Learn */}
       <section className="py-20 bg-gradient-to-b from-blue-950/10 via-purple-950/10 to-transparent">
@@ -494,69 +428,6 @@ export default function Brochure() {
         </div>
       </section>
 
-      {/* Infrastructure Section */}
-      <section className="py-20 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-6xl mb-4">
-              Our <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">World-Class</span> Infrastructure
-            </h2>
-            <p className="text-xl text-gray-400">State-of-the-art facilities designed for optimal learning</p>
-          </motion.div>
-
-          <div className="relative">
-            <div className="flex overflow-x-auto pb-6 gap-6 scroll-smooth" style={{ scrollBehavior: "smooth" }}>
-              {[
-                {
-                  title: "Learning Labs",
-                  image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-                },
-                {
-                  title: "Coding Studio",
-                  image: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-                },
-                {
-                  title: "Collaboration Space",
-                  image: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-                },
-                {
-                  title: "Meeting Rooms",
-                  image: "https://images.unsplash.com/photo-1532622785990-1b1c9fbf6899?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-                },
-                {
-                  title: "Mentor Zones",
-                  image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-                },
-              ].map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="flex-shrink-0 w-80 rounded-2xl overflow-hidden border border-blue-500/30 hover:border-blue-500/60 transition-all group"
-                >
-                  <div className="relative h-64">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                    <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">{item.title}</h3>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
 
       <section className="py-20 bg-gradient-to-b from-purple-950/10 to-transparent">
         <div className="container mx-auto px-4">
@@ -615,7 +486,7 @@ export default function Brochure() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20">
+      {/* <section className="py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -629,7 +500,7 @@ export default function Brochure() {
             <p className="text-xl text-gray-400">Hear from our successful students</p>
           </motion.div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
