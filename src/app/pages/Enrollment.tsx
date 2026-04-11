@@ -334,7 +334,7 @@ export default function Enrollment() {
         key: order.paymentDetails.keyId,
         amount: order.amount,
         currency: order.currency,
-        name: "CodeXAI",
+        name: "CodeXAI Technologies LLP",
         description: course.title,
         image: "https://codexai.co.in/logo.png",
         order_id: order.id,

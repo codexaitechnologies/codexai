@@ -677,7 +677,7 @@ export default function SignUp() {
               theme="outline"
               shape="circle"
               size="large"
-              width="100%"
+              logo_alignment="center"
             />
 
             {/* Login Link */}

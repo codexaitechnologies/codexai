@@ -245,6 +245,7 @@ export default function Login() {
               shape="circle"
               size="large"
               width="100%"
+              logo_alignment="center"
             />
 
             {/* Sign Up Link */}
