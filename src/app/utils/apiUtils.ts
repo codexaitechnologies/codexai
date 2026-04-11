@@ -1,6 +1,6 @@
 import type { CreateUserRequest, CreateUserResponse, ApiError, User } from "../types/api";
 
-const API_BASE_URL = "https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com";
+const API_BASE_URL = "https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com";
 
 // Generic API request handler
 async function apiRequest<T>(
@@ -74,11 +74,53 @@ export async function checkApiHealth(): Promise<boolean> {
   }
 }
 
+// Submit brochure enquiry
+export async function submitBrochureEnquiry(enquiry: {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  course: string;
+  courseId: string;
+}): Promise<any> {
+  try {
+    console.log("Submitting brochure enquiry with data:", enquiry);
+    const response = await fetch(
+      "https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com/enquiries/submit-brochure",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(enquiry),
+      }
+    );
+
+    if (!response.ok) {
+      let errorData: any = {};
+      try {
+        errorData = await response.json();
+      } catch {
+        errorData = { message: `HTTP ${response.status}` };
+      }
+      console.error(`API Error Response (${response.status}):`, errorData);
+      throw new Error(errorData.message || errorData.error || `HTTP ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    console.log("✅ Brochure enquiry submitted successfully!");
+    console.log("Backend Response:", responseData);
+    return responseData;
+  } catch (error) {
+    console.error("Error submitting brochure enquiry:", error);
+    throw error;
+  }
+}
+
 // Fetch courses from API
 export async function fetchCourses(limit = 10) {
   try {
     const response = await fetch(
-      `https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com/courses?limit=${limit}`,
+      `https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com/courses?limit=${limit}`,
       { headers: { "Content-Type": "application/json" } }
     );
     if (!response.ok) throw new Error(`HTTP ${response.status}`);

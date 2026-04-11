@@ -1,4 +1,5 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
+import { useEffect } from "react";
 import { motion } from "motion/react";
 import {
   ArrowRight,
@@ -24,41 +25,67 @@ import {
 import { CoursesSection } from "../components/home/CoursesSection";
 
 export default function Home() {
+  const location = useLocation();
+
+  // Handle smooth scroll to section based on hash
+  useEffect(() => {
+    const hash = location.hash.slice(1);
+    if (hash) {
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full">
-            <div className="grid grid-cols-8 gap-4 opacity-5 dark:opacity-10">
-              {[...Array(64)].map((_, i) => (
-                <div key={i} className="border border-blue-500/30"></div>
-              ))}
-            </div>
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background: image starts at 30% from left, text area stays dark */}
+        <div className="absolute inset-0">
+          {/* Solid dark fill for the left 30% so text area is always dark */}
+          <div className="absolute inset-0 bg-black"></div>
+          {/* Image occupies right 70% of the section */}
+          <div className="absolute top-0 bottom-0 left-[30%] right-0">
+            <img
+              src="/hero_image.png"
+              alt="Developer working"
+              className="w-full h-full object-cover object-left"
+            />
           </div>
+          {/* Left-to-right gradient: black on left bleeds into transparent over the image */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/10"></div>
+          {/* Top & bottom subtle fades */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60"></div>
+        </div>
+
+        {/* Ambient glow blobs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
         </div>
 
         {/* Hero Content */}
         <div className="container mx-auto px-4 py-10 relative z-10">
-          <div className="grid md:grid-cols-2 gap-60 items-center">
+          <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
               <div className="inline-block bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 mb-6">
-                <span className="text-blue-600 dark:text-blue-400 text-sm">🚀 Offline-First Learning Experience</span>
+                <span className="text-blue-400 text-sm">🚀 Offline-First Learning Experience</span>
               </div>
-              <h1 className="text-5xl md:text-7xl mb-6">
+              <h1 className="text-5xl md:text-7xl mb-6 text-white">
                 Build Real Skills.{" "}
                 <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-orange-500 bg-clip-text text-transparent">
                   Switch to Better Tech Careers.
                 </span>
               </h1>
-              <p className="text-xl text-slate-600 dark:text-gray-400 mb-8">
+              <p className="text-xl text-gray-300 mb-8">
                 Offline-first learning with AI, Cloud, and Backend training designed for
                 real-world outcomes.
               </p>
@@ -71,36 +98,26 @@ export default function Home() {
                 </Link>
                 <a
                   href="#courses"
-                  className="border border-blue-500/40 dark:border-blue-500/30 text-slate-700 dark:text-white px-8 py-4 rounded-lg hover:bg-blue-500/10 transition-all flex items-center gap-2 justify-center"
+                  className="border border-blue-500/30 text-white px-8 py-4 rounded-lg hover:bg-blue-500/10 transition-all flex items-center gap-2 justify-center"
                 >
                   Explore Courses
                 </a>
               </div>
             </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
-            >
-              <div className="relative rounded-2xl overflow-hidden border border-blue-500/20">
-                <img
-                  src="https://images.unsplash.com/photo-1770159116807-9b2a7bb82294?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXZlbG9wZXIlMjBjb2RpbmclMjBsYXB0b3AlMjBkYXJrfGVufDF8fHx8MTc3NDcwMjE4MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                  alt="Developer working"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-              </div>
-              {/* Floating Code Block */}
-              <div className="absolute -bottom-6 -left-6 bg-white/90 dark:bg-black/90 border border-slate-200 dark:border-blue-500/30 rounded-lg p-4 backdrop-blur-lg shadow-lg dark:shadow-none">
-                <pre className="text-blue-600 dark:text-blue-400 text-sm">
-                  <code>{`const future = await\n  buildCareer();`}</code>
-                </pre>
-              </div>
-            </motion.div>
           </div>
         </div>
+
+        {/* Floating Code Block */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="absolute bottom-10 right-6 md:right-16 z-10 bg-black/90 border border-blue-500/30 rounded-lg p-4 backdrop-blur-lg"
+        >
+          <pre className="text-blue-400 text-sm">
+            <code>{`const future = await\n  buildCareer();`}</code>
+          </pre>
+        </motion.div>
       </section>
 
       {/* Trust Section */}
@@ -132,13 +149,13 @@ export default function Home() {
           <div className="mt-12 text-center">
             <div className="inline-flex flex-wrap justify-center gap-4 text-sm">
               <span className="bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 text-slate-700 dark:text-white">
-                ✅ Offline Classes
+                Offline Classes
               </span>
               <span className="bg-purple-500/10 border border-purple-500/30 rounded-full px-4 py-2 text-slate-700 dark:text-white">
-                ✅ Recorded Sessions
+                Recorded Sessions
               </span>
               <span className="bg-orange-500/10 border border-orange-500/30 rounded-full px-4 py-2 text-slate-700 dark:text-white">
-                ✅ Real Projects
+                Real Projects
               </span>
             </div>
           </div>
@@ -362,7 +379,7 @@ export default function Home() {
                 name: "Adarsh Chaudhary",
                 position: "Director & Co-Founder",
                 quote: "We believe everyone deserves access to world-class tech education that bridges the gap between learning and real-world application.",
-                image: "/adarsh.jpg",
+                image: "/adarsh4.jpeg",
               },
               {
                 name: "Yogesh Chaudhary",
@@ -446,10 +463,10 @@ export default function Home() {
                 accelerate your tech career.
               </p>
               <Link
-                to="/brochure"
+                to="/contact#submit-query"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-8 py-4 rounded-lg hover:shadow-lg hover:shadow-orange-500/50 transition-all text-lg"
               >
-                Download Brochure <ArrowRight className="w-5 h-5" />
+                Enquire Now <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
           </motion.div>

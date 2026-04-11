@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com";
+const API_BASE_URL = "https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com";
 
 // Types
 export interface SignUpPayload {

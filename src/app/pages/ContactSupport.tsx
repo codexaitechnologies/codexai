@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router";
 import { motion } from "motion/react";
 import {
   Phone,
@@ -15,6 +16,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function ContactSupport() {
   const { user } = useAuth();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -28,6 +30,19 @@ export default function ContactSupport() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [uploadProgress, setUploadProgress] = useState<string>("");
+
+  // Handle smooth scroll to section based on hash
+  useEffect(() => {
+    const hash = location.hash.slice(1);
+    if (hash) {
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location]);
 
   // Auto-populate form with logged-in user data
   useEffect(() => {
@@ -186,7 +201,7 @@ export default function ContactSupport() {
 
         // Call backend API to upload to S3
         const uploadResponse = await fetch(
-          "https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com/support/upload-document",
+          "https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com/support/upload-document",
           {
             method: "POST",
             body: fileFormData,
@@ -241,7 +256,7 @@ export default function ContactSupport() {
       console.log(JSON.stringify(queryData, null, 2));
 
       const response = await fetch(
-        "https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com/support/submit-query",
+        "https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com/support/submit-query",
         {
           method: "POST",
           headers: {
@@ -380,6 +395,7 @@ export default function ContactSupport() {
 
         {/* Query Form */}
         <motion.div
+          id="submit-query"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -664,12 +680,12 @@ export default function ContactSupport() {
             >
               Browse FAQ
             </a>
-            <a
+            {/* <a
               href="/knowledge-base"
               className="px-6 py-3 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
             >
               Knowledge Base
-            </a>
+            </a> */}
           </div>
         </motion.div>
       </motion.div>

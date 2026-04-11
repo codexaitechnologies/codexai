@@ -70,7 +70,7 @@ export default function Enrollment() {
       setCouponsLoading(true);
       try {
         const response = await fetch(
-          "https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com/coupons",
+          "https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com/coupons",
           {
             method: "GET",
             headers: {
@@ -104,8 +104,7 @@ export default function Enrollment() {
   }, [isAuthenticated, currentStep]);
 
   // Find course
-  const courseData = courses.find((c) => c.link === `/course/${courseId}`);
-  console.log("🔍 Course data for courseId", courseId, ":", courseData);
+  const courseData = courses.find((c) => c.courseId === courseId);
   const course = courseData as any;
 
   if (!course) {
@@ -743,12 +742,12 @@ export default function Enrollment() {
 
             {/* Action Buttons */}
             <div className="flex gap-3">
-              <button
+              {/* <button
                 onClick={() => setCurrentStep(1)}
                 className="flex-1 px-6 py-3 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
               >
                 Back
-              </button>
+              </button> */}
               <button
                 onClick={() => setCurrentStep(3)}
                 className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/50 transition-all"

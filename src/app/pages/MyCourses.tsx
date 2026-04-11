@@ -83,7 +83,7 @@ export default function MyCourses() {
         console.log("📡 Fetching enrolled courses for userId:", userId);
 
         const response = await fetch(
-          `https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com/payments/user/${userId}`,
+          `https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com/payments/user/${userId}`,
           {
             method: "GET",
             headers: {

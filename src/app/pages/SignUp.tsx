@@ -266,11 +266,6 @@ export default function SignUp() {
     }
   };
 
-  const handleGoogleSignUp = () => {
-    console.log("Google signup initiated");
-    alert("Google sign up will be implemented soon");
-  };
-
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
       setApiError("");
@@ -675,14 +670,15 @@ export default function SignUp() {
             </div>
 
             {/* Google Sign Up */}
-            <div className="w-full flex justify-center">
-              <GoogleLogin
-                onSuccess={handleGoogleSuccess}
-                onError={handleGoogleError}
-                text="signup_with"
-                locale="en"
-              />
-            </div>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              text="signup_with"
+              theme="outline"
+              shape="circle"
+              size="large"
+              width="100%"
+            />
 
             {/* Login Link */}
             <p className="text-center mt-8 text-slate-600 dark:text-slate-400">
@@ -702,7 +698,7 @@ export default function SignUp() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="hidden lg:flex flex-col items-center justify-center p-12 bg-gradient-to-br from-blue-600 to-purple-600 relative overflow-hidden"
+          className="hidden lg:flex flex-col items-center justify-center p-12 relative overflow-hidden"
         >
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" />
@@ -710,6 +706,19 @@ export default function SignUp() {
           </div>
 
           <div className="relative z-10 text-center text-white max-w-md">
+            {/* Logo */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="mb-8"
+            >
+              <img
+                src="/logo.png"
+                alt="CodeXAI Logo"
+                className="h-46 object-contain mx-auto"
+              />
+            </motion.div>
+
             <h2 className="text-4xl font-bold mb-4">Welcome to CodeXAI</h2>
             <p className="text-blue-100 text-lg mb-8 leading-relaxed">
               Start your journey into advanced AI and backend development with industry-leading courses and expert instructors.

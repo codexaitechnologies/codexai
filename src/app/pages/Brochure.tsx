@@ -16,7 +16,7 @@ import {
   Loader,
 } from "lucide-react";
 import type { Enquiry } from "../types/enquiry";
-import { createUser } from "../utils/apiUtils";
+import { submitBrochureEnquiry } from "../utils/apiUtils";
 import { useCourses } from "../context/CoursesContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -28,7 +28,7 @@ export default function Brochure() {
     name: "",
     email: "",
     phone: "",
-    interest: courses.length > 0 ? courses[0].courseId : "",
+    interest: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -44,14 +44,6 @@ export default function Brochure() {
       }));
     }
   }, [isAuthenticated, user]);
-
-  // Update interest field when courses load
-  if (courses.length > 0 && formData.interest === "") {
-    setFormData((prev) => ({
-      ...prev,
-      interest: courses[0].courseId,
-    }));
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,22 +86,11 @@ export default function Brochure() {
     
     console.log("API Payload:", payload);
 
-    await createUser(payload).then((response) => {
+    await submitBrochureEnquiry(payload).then((response) => {
       console.log("API Response:", response);
-      // Show success message
+      // Show success message (stays until page refresh)
       setLoading(false);
       setSubmitted(true);
-
-      // Clear form fields after delay
-      setTimeout(() => {
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          interest: courses.length > 0 ? courses[0].courseId : "",
-        });
-        setSubmitted(false);
-      }, 3000);
     }).catch((error) => {
       console.error("API Error:", error);
       setLoading(false);
@@ -211,7 +192,7 @@ export default function Brochure() {
                   </p>
                   <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
                     <p className="text-xs text-gray-400">
-                      Check your email for updates.
+                      Check your email for brochure.
                     </p>
                   </div>
                 </div>
@@ -279,15 +260,16 @@ export default function Brochure() {
                     </div>
 
                     <div>
-                      <label className="block text-xs mb-1 text-gray-300">Course of Interest</label>
+                      <label className="block text-xs mb-1 text-gray-300">Course of Interest <span className="text-red-500">*</span></label>
                       <select
                         name="interest"
                         value={formData.interest}
                         onChange={handleChange}
                         className="w-full bg-black/50 border border-blue-500/30 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition-colors text-sm"
                       >
+                        <option value="">-- SELECT --</option>
                         {loadingCourses ? (
-                          <option>Loading...</option>
+                          <option disabled>Loading...</option>
                         ) : (
                           courses.map((course) => (
                             <option key={course.courseId} value={course.courseId}>

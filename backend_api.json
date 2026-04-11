@@ -975,7 +975,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": "https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com",
+      "value": "https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com",
       "type": "string",
       "description": "CodexAI Backend API base URL"
     },

@@ -74,6 +74,16 @@ export default function Layout() {
     }
   };
 
+  const handleHomeClick = () => {
+    if (location.pathname === "/") {
+      // Already on home, scroll to top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Navigate to home (scroll to top will happen via useEffect)
+      navigate("/");
+    }
+  };
+
   const handleCoursesClick = () => {
     // If already on home page, scroll to courses section
     if (location.pathname === "/") {
@@ -82,7 +92,7 @@ export default function Layout() {
         coursesSection.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // Otherwise navigate to home and let useEffect handle the scroll
+      // Otherwise navigate to home with courses hash
       navigate("/#courses");
     }
   };
@@ -103,9 +113,12 @@ export default function Layout() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <button
+              onClick={handleHomeClick}
+              className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer bg-none border-none p-0"
+            >
               Home
-            </Link>
+            </button>
             <Link to="/about" className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
               About
             </Link>
@@ -154,15 +167,6 @@ export default function Layout() {
                       <span className="text-sm">View Account</span>
                     </Link>
 
-                    <Link
-                      to="/my-courses"
-                      className="flex items-center gap-3 px-4 py-3 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                      onClick={() => setProfileDropdownOpen(false)}
-                    >
-                      <BookOpen className="w-4 h-4" />
-                      <span className="text-sm">My Courses</span>
-                    </Link>
-
                     <button
                       onClick={handleLogout}
                       disabled={isLoading}
@@ -186,13 +190,25 @@ export default function Layout() {
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-blue-900/40 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+              className={`relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none flex-shrink-0 ${
+                theme === "dark"
+                  ? "bg-slate-700 border border-blue-900/40"
+                  : "bg-slate-200 border border-slate-300"
+              }`}
             >
-              {theme === "dark" ? (
-                <Sun className="w-5 h-5 text-yellow-400" />
-              ) : (
-                <Moon className="w-5 h-5 text-slate-600" />
-              )}
+              <span
+                className={`absolute top-0.5 w-6 h-6 rounded-full flex items-center justify-center shadow-md transition-transform duration-300 ${
+                  theme === "dark"
+                    ? "translate-x-7 bg-slate-900"
+                    : "translate-x-0.5 bg-white"
+                }`}
+              >
+                {theme === "dark" ? (
+                  <Sun className="w-3.5 h-3.5 text-yellow-400" />
+                ) : (
+                  <Moon className="w-3.5 h-3.5 text-slate-500" />
+                )}
+              </span>
             </button>
           </div>
 
@@ -202,13 +218,25 @@ export default function Layout() {
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 dark:border-blue-900/40 bg-slate-100 dark:bg-slate-800 transition-all"
+              className={`relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none flex-shrink-0 ${
+                theme === "dark"
+                  ? "bg-slate-700 border border-blue-900/40"
+                  : "bg-slate-200 border border-slate-300"
+              }`}
             >
-              {theme === "dark" ? (
-                <Sun className="w-4 h-4 text-yellow-400" />
-              ) : (
-                <Moon className="w-4 h-4 text-slate-600" />
-              )}
+              <span
+                className={`absolute top-0.5 w-5 h-5 rounded-full flex items-center justify-center shadow-md transition-transform duration-300 ${
+                  theme === "dark"
+                    ? "translate-x-6 bg-slate-900"
+                    : "translate-x-0.5 bg-white"
+                }`}
+              >
+                {theme === "dark" ? (
+                  <Sun className="w-3 h-3 text-yellow-400" />
+                ) : (
+                  <Moon className="w-3 h-3 text-slate-500" />
+                )}
+              </span>
             </button>
             <button
               className="text-slate-800 dark:text-white"
@@ -223,13 +251,15 @@ export default function Layout() {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-lg border-t border-slate-200/60 dark:border-blue-900/20 transition-colors duration-300">
             <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-              <Link
-                to="/"
-                className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  handleHomeClick();
+                  setMobileMenuOpen(false);
+                }}
+                className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-left bg-none border-none p-0 cursor-pointer w-full"
               >
                 Home
-              </Link>
+              </button>
               <Link
                 to="/about"
                 className="text-slate-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -275,7 +305,7 @@ export default function Layout() {
                       <span>View Account</span>
                     </Link>
                     <Link
-                      to="/my-courses"
+                      to="/account"
                       className="flex items-center gap-2 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-2 py-2"
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -341,7 +371,7 @@ export default function Layout() {
                   courses.map((course) => (
                     <Link
                       key={course.courseId}
-                      to={course.link}
+                      to={`/course/${course.courseId}`}
                       className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                     >
                       {course.title}
@@ -376,9 +406,9 @@ export default function Layout() {
                 <p>Email: codexaitechnologies@gmail.com</p>
                 <p>Phone: +91 82859 94903</p>
                 <div className="flex gap-4 mt-2">
-                  <a href="https://www.linkedin.com/in/codexai-technologies-29024a400/" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">LinkedIn</a>
-                  <a href="https://twitter.com/codexaitech" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Twitter</a>
-                  <a href="https://instagram.com/codexai_india" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Instagram</a>
+                  <a href="https://www.linkedin.com/in/codexai-technologies-29024a400/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">LinkedIn</a>
+                  <a href="https://twitter.com/codexaitech" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Twitter</a>
+                  <a href="https://instagram.com/codexai_india" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Instagram</a>
                 </div>
               </div>
             </div>

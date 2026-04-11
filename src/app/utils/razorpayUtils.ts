@@ -1,5 +1,5 @@
 // API endpoint - update this with your actual backend URL
-const API_BASE_URL = "https://jbd1szydoc.execute-api.ap-south-1.amazonaws.com/payments";
+const API_BASE_URL = "https://r5exi0cxad.execute-api.ap-south-1.amazonaws.com/payments";
 
 export interface CreateOrderPayload {
   amount: number; // Amount in rupees (will be converted to paise by backend for Razorpay)

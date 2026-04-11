@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import Home from "./pages/Home";
 import CourseDetail from "./pages/CourseDetail";
 import Enrollment from "./pages/Enrollment";
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
       { path: "forgot-password", Component: ForgotPassword },
       { path: "reset-password", Component: ResetPassword },
       { path: "account", Component: Account },
-      { path: "my-courses", Component: MyCourses },
+      { path: "my-courses", element: <Navigate to="/account" replace /> },
       { path: "legal/:documentName", Component: Legal },
       { path: "*", Component: NotFound },
     ],

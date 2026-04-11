@@ -237,14 +237,15 @@ export default function Login() {
             </div>
 
             {/* Google Login */}
-            <div className="w-full flex justify-center">
-              <GoogleLogin
-                onSuccess={handleGoogleSuccess}
-                onError={handleGoogleError}
-                text="signin_with"
-                locale="en"
-              />
-            </div>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              text="signin_with"
+              theme="outline"
+              shape="circle"
+              size="large"
+              width="100%"
+            />
 
             {/* Sign Up Link */}
             <p className="text-center mt-8 text-slate-600 dark:text-slate-400">
@@ -253,7 +254,7 @@ export default function Login() {
                 to="/signup"
                 className="text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
               >
-                Sign up here
+                Sign Up
               </Link>
             </p>
           </div>
@@ -328,7 +329,7 @@ export default function Login() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="hidden lg:flex flex-col justify-center items-center relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-blue-700"
+          className="hidden lg:flex flex-col justify-center items-center relative overflow-hidden"
         >
           {/* Background Elements */}
           <div className="absolute inset-0 opacity-20">
@@ -338,27 +339,17 @@ export default function Login() {
 
           {/* Content */}
           <div className="relative z-10 text-center px-8 flex flex-col items-center justify-center min-h-full">
-            {/* AI Illustration */}
+            {/* Logo */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity }}
               className="mb-8"
             >
-              <div className="w-32 h-32 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
-                <svg
-                  className="w-20 h-20 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                  />
-                </svg>
-              </div>
+              <img
+                src="/logo.png"
+                alt="CodeXAI Logo"
+                className="h-46 object-contain"
+              />
             </motion.div>
 
             <h2 className="text-4xl font-bold text-white mb-4">
